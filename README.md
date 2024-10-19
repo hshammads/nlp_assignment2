@@ -5,7 +5,7 @@ This is assignment 2 for CPSC 488: Natural Language Processing, taught by Dr. Ch
 
 ## Objectives
 In this exercise, you will learn how to develop a sentiment analysis model and an an automated trading system relying on the analysis results.
-<span style="color:blue">Only Python programs written using Python 3.0 or higher will be accepted</span>. <span style="color:red">NO Jupyter notebook or any other Python variants</span>. will be accepted for efficient grading.
+$${\color{blue}Only Python programs written using Python 3.0 or higher will be accepted}$$. <span style="color:red">NO Jupyter notebook or any other Python variants</span>. will be accepted for efficient grading.
 
 
 ## About the dataset and problem to solve
