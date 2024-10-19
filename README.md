@@ -1,6 +1,6 @@
 # NLP Class Assignment 2
-This is assignment 2 for CPSC 488: Natural Language Processing, taught by Dr. Christopher Ryu, at California State University, Fullerton (CSUF).\n
-  Collaborators: Hammad Sheikh, Matthew Do, Ryan Avancena.\n
+This is assignment 2 for CPSC 488: Natural Language Processing, taught by Dr. Christopher Ryu, at California State University, Fullerton (CSUF).  
+  Collaborators: Hammad Sheikh, Matthew Do, Ryan Avancena.  
   Assignment details, as provided by Dr. Ryu.
 
 ## Objectives
