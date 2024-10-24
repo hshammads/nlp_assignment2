@@ -1,7 +1,6 @@
 from yahoo_fin import stock_info, news as stock_news
 from requests_html import HTMLSession
 from datetime import date
-import datetime
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -9,12 +8,16 @@ import enum
 import os
 import pathlib
 import json
-import datetime
 
 cwd = os.getcwd()
 
+# startDate, we can adjust as needed
+startDate = date(2013, 1, 1)
+# endDate, we can adjust as needed
+endDate = date.today()
+
 DEBUG = True
-TODAY = date.today().strftime('%Y%m%d')
+TODAY = endDate.strftime('%Y%m%d')
 DATA_STORAGE_DIR = cwd + '/data/' + TODAY + '/'
 TICKERS = ['META','AAPL','AMZN','NFLX','NVDA','GOOG','MSFT','CRWD','AVGO','NOW']
 TICKERS_STRING = ", ".join(TICKERS)
@@ -86,7 +89,7 @@ def get_market_index_symbols():
 #TODO: you can use multi-threading to shorten the download time instead of one symbol at a time
 def get_bulk_data(symbols):
     print("********Downloading data using yfinance package******")
-    tickers = pd.DataFrame(yf.download(tickers=symbols))
+    tickers = pd.DataFrame(yf.download(tickers=symbols, start = startDate, end = endDate))
 
     # store data in JSON format
     if not tickers.empty:
