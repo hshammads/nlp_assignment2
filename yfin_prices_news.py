@@ -75,12 +75,7 @@ def get_market_index_symbols():
 
     print("* NASDAQ members *", nasdaq)
 
-    russell = {"RUSSELL2000": []} #stock_data.tickers_nasdaq()} # todo: not yet available, 1000 is available check later
-
-# Get historical price of a selected symbol
-def get_historical_prices(symbols, sdate = None, edate = None):
-    price_data = stock_info.get_data(symbol, start_date = sdate, end_date = edate)
-    print(price_data)
+    # russell = {"RUSSELL2000": []} # todo: not yet available, 1000 is available check later
 
 # Get news from Yahoo finance
 def get_news(symbol):
@@ -125,8 +120,8 @@ def get_bulk_data(symbols):
         exit(1)
 
     print(tickers)
-    return
-    """
+    # return
+
     # TODO: The section below is for multi-threading but incomplete
     def download(symbol, ticker, securities, invalid_symbols):
         fdata = get_financial_data_from_Yahoo(ticker) # sending ticker object
@@ -137,6 +132,8 @@ def get_bulk_data(symbols):
             print(symbol)
 
     tickers = yf.Tickers(symbols).tickers # Getting fundamental data for multiple companies and save them to json file
+    print("yf.Tickers: ",tickers)
+    """
     tasks = dict()
 
     from threading import Thread
