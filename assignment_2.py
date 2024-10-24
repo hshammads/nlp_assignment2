@@ -1,61 +1,188 @@
-import os
+from yahoo_fin import stock_info, news as stock_news
+from requests_html import HTMLSession
+from datetime import date
+import datetime
 import yfinance as yf
 import pandas as pd
+import numpy as np
+import enum
+import os
+import pathlib
+import json
 import datetime
 
-# set DEBUG param
+cwd = os.getcwd()
+
 DEBUG = True
+TODAY = date.today().strftime('%Y%m%d')
+DATA_STORAGE_DIR = cwd + '/data/' + TODAY + '/'
+TICKERS = ['META','AAPL','AMZN','NFLX','NVDA','GOOG','MSFT','CRWD','AVGO','NOW']
+TICKERS_STRING = ", ".join(TICKERS)
 
-# startDate, we can adjust as needed
-startDate = datetime.datetime(2013, 1, 1)
+# make directory for today's data
+pathlib.Path(DATA_STORAGE_DIR).mkdir(parents = True, exist_ok = True)
 
-# endDate, we can adjust as needed
-endDate = datetime.datetime.now().strftime('%Y-%m-%d')
+# Window size of data set
+class WindowType(enum.Enum):
+    LONGLONG = '3y'  # 3 year
+    LONG = '1y'  # 1 year
+    MID = '20d'   # 20days
+    SHORT = '5d' # 5 days (1 week)
+    DAY = '1d' # day trading
 
-# define ticker
-tsla = yf.Ticker('TSLA')
+# Number of data points by period, 756 points for 3yrs, 252 for 1year, 255 for 20days, 125 points for 10days (12.5 points per day x 10, 30min interval)
+class DataPointType(enum.Enum):
+    LONGLONG = 756
+    LONG = 252
+    MID = 255
+    SHORT = 125
 
-# pass the parameters as the taken dates for start and end
-hist = pd.DataFrame(tsla.history(start = startDate, end = endDate))
-news = pd.DataFrame(tsla.get_news()) # TO DO: Grab other news articles not directly limited to TSLA!
-recs = pd.DataFrame(tsla.get_recommendations())
+class DataIntervalType(enum.Enum):
+    LONG = '1d' # daily points
+    SHORT = '30m' # every 30 minutes
+    SHORTSHORT = '15m' # every 15 minutes
 
-if DEBUG:
-    print('Hist:\n {}\n'.format(hist))
-    print('News:\n {}\n'.format(news))
-    print('Recommendations:\n {}\n'.format(recs))
+# Get the members of major indices, DJI, S&P 500, NASDAQ, RUSSELL 2000
+def get_market_index_symbols():
+    dow = pd.DataFrame(stock_info.tickers_dow()) # Actually parsed from Wikipedia
+    # store data in JSON format
+    if not dow.empty:
+        if DEBUG:
+            print('Writing DOW index symbols information to JSON file ...')
+        dow.to_json(DATA_STORAGE_DIR + '/dow_index_symbols.json', orient = 'split', compression = 'infer')
+    else:
+        print('No DOW tickers information ...')
+        exit(1)
 
-# store data in JSON format
-if not hist.empty:
+    print("* DOW members *", dow)
+
+    sp = pd.DataFrame(stock_info.tickers_sp500()) # Actually parsed from Wikipedia
+    # store data in JSON format
+    if not sp.empty:
+        if DEBUG:
+            print('Writing S&P500 index symbols information to JSON file ...')
+        sp.to_json(DATA_STORAGE_DIR + '/sp_index_symbols.json', orient = 'split', compression = 'infer')
+    else:
+        print('No S&P500 tickers information ...')
+        exit(1)
+
+    print("* S&P500 members *", sp)
+
+    nasdaq = pd.DataFrame(stock_info.tickers_nasdaq()) # Actually parsed from NASDAQ
+    # store data in JSON format
+    if not nasdaq.empty:
+        if DEBUG:
+            print('Writing NASDAQ index symbols information to JSON file ...')
+        nasdaq.to_json(DATA_STORAGE_DIR + '/nasdaq_index_symbols.json', orient = 'split', compression = 'infer')
+    else:
+        print('No NASDAQ tickers information ...')
+        exit(1)
+
+    print("* NASDAQ members *", nasdaq)
+
+    # russell = {"RUSSELL2000": []} # todo: not yet available, 1000 is available check later
+
+# Bulk download from Yahoo Finance using yfinance package
+#TODO: you can use multi-threading to shorten the download time instead of one symbol at a time
+def get_bulk_data(symbols):
+    print("********Downloading data using yfinance package******")
+    tickers = pd.DataFrame(yf.download(tickers=symbols))
+
+    # store data in JSON format
+    if not tickers.empty:
+        if DEBUG:
+            print('Writing tickers information to JSON file ...')
+        tickers.to_json(DATA_STORAGE_DIR + 'tickers_hist.json', orient = 'split', compression = 'infer')
+    else:
+        print('No tickers information ...')
+        exit(1)
+
     if DEBUG:
-        print('Writing history information to JSON file ...')
-    hist.to_json('tsla_hist.json', orient = 'split', compression = 'infer')
-else:
-    print('No history information ...')
-    exit(1)
+        print('Bulk data tickers info: ',tickers)
 
-if not news.empty:
-    if DEBUG:
-        print('Writing news information to JSON file ...')
-    news.to_json('tsla_news.json', orient = 'split', compression = 'infer')
-else:
-    print('No news information ...')
-    exit(1)
+# run functions to get and store price data
+get_market_index_symbols()
+get_bulk_data(TICKERS_STRING)
 
-if not recs.empty:
-    if DEBUG:
-        print('Writing recommendations information to JSON file ...')
-    recs.to_json('tsla_recs.json', orient = 'split', compression = 'infer')
-else:
-    print('No recommendations information ...')
-    exit(1)
+# Get news from Yahoo finance
+def get_news(symbol):
+    """
+    :param symbol:
+    :return: [{'summary':, .., 'link': url, 'published': 'Wed, 24 Nov 2021 20:48:02 +0000', ..}, {}, ...]
+    """
+    symbol = symbol.upper()
+    return stock_news.get_yf_rss(symbol)
 
-# read the JSON files
-hist = pd.read_json('tsla_hist.json', orient ='split', compression = 'infer')
-news = pd.read_json('tsla_news.json', orient ='split', compression = 'infer')
-recs = pd.read_json('tsla_recs.json', orient ='split', compression = 'infer')
+# getting one news item at a time
+session = HTMLSession()
 
-if DEBUG:
-    print('Hist data from JSON file:\n {}\n'.format(hist))
-    print('News data from JSON file:\n {}\n'.format(news))
-    print('Recommendations data from JSON file:\n {}\n'.format(recs))
+def get_info(link):
+    r = session.get(link)
+
+    # div - 'body yf-5ef8bf'
+    div_body = r.html.find('div.body.yf-5ef8bf', first=True)
+
+    # byline-attr-time-style
+    by_line = r.html.find('div.byline.yf-1k5w6kz', first=True)
+
+    # p - yf-1pe5jgt
+    date = ""
+    text = []
+
+    if div_body:
+        paragraphs = div_body.find('p.yf-1pe5jgt')
+
+        # ensure there are enough paragraphs to extract first and (potentially) last
+        if len(paragraphs) >= 5:
+            first_paragraph = paragraphs[0].text
+
+            # dynamically find a valid last paragraph if external links may appear
+            last_paragraph = paragraphs[-4].text if len(paragraphs) >= 5 else paragraphs[-1].text
+
+            # return text in a list
+            text = [first_paragraph, last_paragraph]
+            # return text
+        else:
+            return None
+
+    if by_line:
+        time_element = by_line.find('time', first=True)
+        if time_element:
+            # extract the datetime attribute
+            datetime_str = time_element.attrs.get('datetime')
+            if datetime_str:
+                # split the string to get only the date (YYYY-MM-DD)
+                date = datetime_str.split('T')[0]
+                # print(date)
+                # return date
+
+    if div_body:
+        return [date,text]
+
+news_data = [get_news(ticker_name) for ticker_name in TICKERS]
+
+info = {}
+c = 0
+
+for idx, item in enumerate(news_data):
+    if item:
+        for article in item:
+            if DEBUG:
+                print('Starting news data grab for link {} ...\n'.format(article['link']))
+            data = get_info(link=article['link'])
+
+            if data:
+                info[c] = {
+                    "ticker" : TICKERS[idx],  # Get the ticker symbol from the list
+                    "date_published" : data[0],
+                    "title": item[idx]["title"],
+                    "summary" : item[idx]["summary"],
+                    "first_p": data[1][0],
+                    "last_p": data[1][1]
+                }
+                c += 1
+
+with open(DATA_STORAGE_DIR + '/news_data.json', 'w') as json_file:
+    json.dump(info, json_file, indent=4)
+
+print(f"Data saved to 'news_data.json'")
