@@ -1,21 +1,26 @@
 from yahoo_fin import stock_info, news as stock_news
+from requests_html import HTMLSession
 from datetime import date
+import datetime
 import yfinance as yf
 import pandas as pd
 import numpy as np
 import enum
 import os
 import pathlib
+import json
+import datetime
 
 cwd = os.getcwd()
 
 DEBUG = True
 TODAY = date.today().strftime('%Y%m%d')
 DATA_STORAGE_DIR = cwd + '/data/' + TODAY + '/'
-NEWS_DATA_STORAGE_DIR = cwd + '/data/' + TODAY + '/news/'
+TICKERS = ['META','AAPL','AMZN','NFLX','NVDA','GOOG','MSFT','CRWD','AVGO','NOW']
+TICKERS_STRING = ", ".join(TICKERS)
 
 # make directory for today's data
-pathlib.Path(NEWS_DATA_STORAGE_DIR).mkdir(parents = True, exist_ok = True)
+pathlib.Path(DATA_STORAGE_DIR).mkdir(parents = True, exist_ok = True)
 
 # Window size of data set
 class WindowType(enum.Enum):
@@ -77,35 +82,8 @@ def get_market_index_symbols():
 
     # russell = {"RUSSELL2000": []} # todo: not yet available, 1000 is available check later
 
-# Get news from Yahoo finance
-def get_news(symbol):
-    """
-    :param symbol:
-    :return: [{'summary':, .., 'link': url, 'published': 'Wed, 24 Nov 2021 20:48:02 +0000', ..}, {}, ...]
-    """
-    symbol = symbol.upper()
-    return stock_news.get_yf_rss(symbol)
-
-#### testing functions here
-
-"""
-news_data = get_news('AAPL')
-print(news_data)
-"""
-#exit()
-
-"""
-# getting one news item at a time
-for item in news_data:
-    print("-----news---------------")
-    print(item['title'])
-    print(item['link'])
-    print(item['published'])
-"""
-
 # Bulk download from Yahoo Finance using yfinance package
-#TODO: you can download the bulk of data by a period instead of one day at a time
-#TODO: you can use multi-threading to shorten the download time instad of one symbol at a time
+#TODO: you can use multi-threading to shorten the download time instead of one symbol at a time
 def get_bulk_data(symbols):
     print("********Downloading data using yfinance package******")
     tickers = pd.DataFrame(yf.download(tickers=symbols))
@@ -119,34 +97,92 @@ def get_bulk_data(symbols):
         print('No tickers information ...')
         exit(1)
 
-    print(tickers)
-    # return
+    if DEBUG:
+        print('Bulk data tickers info: ',tickers)
 
-    # TODO: The section below is for multi-threading but incomplete
-    def download(symbol, ticker, securities, invalid_symbols):
-        fdata = get_financial_data_from_Yahoo(ticker) # sending ticker object
-        if fdata is None:
-            invalid_symbols.append(symbol)
-        else:
-            securities[symbol] = fdata
-            print(symbol)
-
-    tickers = yf.Tickers(symbols).tickers # Getting fundamental data for multiple companies and save them to json file
-    print("yf.Tickers: ",tickers)
-    """
-    tasks = dict()
-
-    from threading import Thread
-    for symbol in tickers:
-        tasks[symbol] = Thread(target=download, args=(symbol, tickers[symbol],))
-
-    for symbol in tasks:
-        tasks[symbol].start()
-
-    for symbol in tasks:
-        tasks[symbol].join()
-    """
-
-# run functions to get and store data
+# run functions to get and store price data
 get_market_index_symbols()
-get_bulk_data('AAPL, GOOG, META, AMZN, NFLX, NVDA, MSFT, CRWD, AVGO, NOW')
+get_bulk_data(TICKERS_STRING)
+
+# Get news from Yahoo finance
+def get_news(symbol):
+    """
+    :param symbol:
+    :return: [{'summary':, .., 'link': url, 'published': 'Wed, 24 Nov 2021 20:48:02 +0000', ..}, {}, ...]
+    """
+    symbol = symbol.upper()
+    return stock_news.get_yf_rss(symbol)
+
+# getting one news item at a time
+session = HTMLSession()
+
+def get_info(link):
+    r = session.get(link)
+
+    # div - 'body yf-5ef8bf'
+    div_body = r.html.find('div.body.yf-5ef8bf', first=True)
+
+    # byline-attr-time-style
+    by_line = r.html.find('div.byline.yf-1k5w6kz', first=True)
+
+    # p - yf-1pe5jgt
+    date = ""
+    text = []
+
+    if div_body:
+        paragraphs = div_body.find('p.yf-1pe5jgt')
+
+        # ensure there are enough paragraphs to extract first and (potentially) last
+        if len(paragraphs) >= 5:
+            first_paragraph = paragraphs[0].text
+
+            # dynamically find a valid last paragraph if external links may appear
+            last_paragraph = paragraphs[-4].text if len(paragraphs) >= 5 else paragraphs[-1].text
+
+            # return text in a list
+            text = [first_paragraph, last_paragraph]
+            # return text
+        else:
+            return None
+
+    if by_line:
+        time_element = by_line.find('time', first=True)
+        if time_element:
+            # extract the datetime attribute
+            datetime_str = time_element.attrs.get('datetime')
+            if datetime_str:
+                # split the string to get only the date (YYYY-MM-DD)
+                date = datetime_str.split('T')[0]
+                # print(date)
+                # return date
+
+    if div_body:
+        return [date,text]
+
+news_data = [get_news(ticker_name) for ticker_name in TICKERS]
+
+info = {}
+c = 0
+
+for idx, item in enumerate(news_data):
+    if item:
+        for article in item:
+            if DEBUG:
+                print('Starting news data grab for link {} ...\n'.format(article['link']))
+            data = get_info(link=article['link'])
+
+            if data:
+                info[c] = {
+                    "ticker" : TICKERS[idx],  # Get the ticker symbol from the list
+                    "date_published" : data[0],
+                    "title": item[idx]["title"],
+                    "summary" : item[idx]["summary"],
+                    "first_p": data[1][0],
+                    "last_p": data[1][1]
+                }
+                c += 1
+
+with open(DATA_STORAGE_DIR + '/news_data.json', 'w') as json_file:
+    json.dump(info, json_file, indent=4)
+
+print(f"Data saved to 'news_data.json'")
