@@ -116,7 +116,7 @@ def get_news(symbol):
     symbol = symbol.upper()
     return stock_news.get_yf_rss(symbol)
 
-# getting one news item at a time
+# getting one news item at a time, by Ryan
 session = HTMLSession()
 
 def get_info(link):
@@ -160,11 +160,10 @@ def get_info(link):
                 # return date
 
     if div_body:
-        return [date,text]
+        return [date,link,text,div_body.text]
 
 news_data = [get_news(ticker_name) for ticker_name in TICKERS]
 
-info = {}
 c = 0
 
 for idx, item in enumerate(news_data):
@@ -173,19 +172,21 @@ for idx, item in enumerate(news_data):
             if DEBUG:
                 print('Starting news data grab for link {} ...\n'.format(article['link']))
             data = get_info(link=article['link'])
-
             if data:
-                info[c] = {
-                    "ticker" : TICKERS[idx],  # Get the ticker symbol from the list
+                info = {
+                    "ticker": TICKERS[idx],  # Get the ticker symbol from the list
                     "date_published" : data[0],
                     "title": item[idx]["title"],
-                    "summary" : item[idx]["summary"],
-                    "first_p": data[1][0],
-                    "last_p": data[1][1]
+                    "summary": item[idx]["summary"],
+                    "link": data[1],
+                    "first_p": data[2][0],
+                    "last_p": data[2][1],
+                    "whole_article": data[3]
                 }
+                with open(DATA_STORAGE_DIR + '/news_data.json', 'a') as json_file:
+                    if c > 0:
+                        json_file.write(',')
+                    json.dump({c:info}, json_file, indent=5)
+                    if DEBUG:
+                        print("Info data for {} saved to 'news_data.json'".format(article['link']))
                 c += 1
-
-with open(DATA_STORAGE_DIR + '/news_data.json', 'w') as json_file:
-    json.dump(info, json_file, indent=4)
-
-print(f"Data saved to 'news_data.json'")
