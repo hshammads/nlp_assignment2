@@ -1,6 +1,9 @@
 from yahoo_fin import stock_info, news as stock_news
 from requests_html import HTMLSession
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse, urljoin
 from datetime import date
+import requests
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -110,17 +113,32 @@ get_bulk_data(TICKERS_STRING)
 # Get news from Yahoo finance
 def get_news(symbol):
     """
-    :param symbol:
-    :return: [{'summary':, .., 'link': url, 'published': 'Wed, 24 Nov 2021 20:48:02 +0000', ..}, {}, ...]
+    #:param symbol:
+    #:return: [{'summary':, .., 'link': url, 'published': 'Wed, 24 Nov 2021 20:48:02 +0000', ..}, {}, ...]
     """
     symbol = symbol.upper()
     return stock_news.get_yf_rss(symbol)
 
 # getting one news item at a time, by Ryan
 session = HTMLSession()
+def extract_a_tags(element, base_url):
+    urls = []
+
+    if element is not None:
+        if hasattr(element, 'name') and element.name == 'a' and 'href' in element.attrs:
+            href = element['href']
+            absolute_url = urljoin(base_url, href)
+            urls.append(absolute_url)
+
+        if hasattr(element, 'contents'):
+            for child in element.contents:
+                urls.extend(extract_a_tags(child, base_url))
+
+    return urls
 
 def get_info(link):
     r = session.get(link)
+    #print(r)
 
     # div - 'body yf-5ef8bf'
     div_body = r.html.find('div.body.yf-5ef8bf', first=True)
@@ -165,12 +183,11 @@ def get_info(link):
 news_data = [get_news(ticker_name) for ticker_name in TICKERS]
 
 c = 0
-
 for idx, item in enumerate(news_data):
     if item:
         for article in item:
             if DEBUG:
-                print('Starting news data grab for link {} ...\n'.format(article['link']))
+                print('Starting news data grab for link {} ...'.format(article['link']))
             data = get_info(link=article['link'])
             if data:
                 info = {
@@ -188,5 +205,5 @@ for idx, item in enumerate(news_data):
                         json_file.write(',')
                     json.dump({c:info}, json_file, indent=5)
                     if DEBUG:
-                        print("Info data for {} saved to 'news_data.json'".format(article['link']))
+                        print("Info data for {} saved to 'news_data.json'\n".format(article['link']))
                 c += 1
