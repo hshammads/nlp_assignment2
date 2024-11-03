@@ -52,9 +52,9 @@ $\color{red}\text{**Utilize** the **GPU** resources available on the **Nautilus*
 **$\color{red}\text{Warning:}$** Although you can reuse any source codes available on the Internet, you are not allowed to share your codes with any other team or students in this class. Any student or team violating this policy will receive a **ZERO** score for this assignment, potentially for all the remaining assignments.
 
 ## What to submit
-1.  \textcolor{blue}{One analysis report} includes \textcolor{blue}{all your member names}, \% contribution made by each member, and all the answers to the questions based on your analysis in **PDF** or **Word format**. If every member contributed equally, simply state \enquote{\textcolor{purple}{equal contribution}.} If your team does not agree on individual contributions, briefly write a task description for each member. Different grades may be assigned based on individual contributions, even if a group completed the work.
+1.  $\color{blue}\text{One analysis report}$ includes $\color{blue}\text{all your member names}$, \% contribution made by each member, and all the answers to the questions based on your analysis in **PDF** or **Word format**. If every member contributed equally, simply state $\color{purple}\text{"equal contribution"}$. If your team does not agree on individual contributions, briefly write a task description for each member. Different grades may be assigned based on individual contributions, even if a group completed the work.
 
-2. **Upload one analysis report file** and **Python program file(s)**, individually. Please \textcolor{red}{DO NOT upload any zip file} since Canvas cannot open it.
+2. **Upload one analysis report file** and **Python program file(s)**, individually. Please $\color{red}\text{DO NOT upload any zip file}$ since Canvas cannot open it.
 
 3. When you show some example data in your analysis report (when necessary), select only a few examples, not including the entire dataset.
 
