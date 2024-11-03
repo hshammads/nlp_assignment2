@@ -80,6 +80,7 @@ Due date: 12/01/2024 11:59PM\\
 Members: Hammad Sheikh, Matthew Do, Ryan Avancena \\
 Work distribution: Equal
 
+\iffalse
 \subsection*{Objectives}
 In this exercise, you will learn how to develop a sentiment analysis model and an automated trading system relying on the analysis results.
 \textcolor{blue}{Only Python programs written using Python 3.0 or higher will be accepted}. \textcolor{red}{NO Jupyter notebook or any other Python variants} will be accepted for efficient grading.\\
@@ -139,6 +140,7 @@ A stock, in investment terms, represents ownership in a company. When you buy st
 	\item The level of understanding as reflected in the report
 	\item Effort (10\%)
 \end{itemize}
+\fi
 
 $\hrulefill$
 
@@ -170,14 +172,22 @@ utilize the computing power and technology available in computers, we may be abl
 	%\textit{\underline{Note from Dr. Ryu:}} You can use any package to download the data, but some popular Python packages may be \textbf{yfinance} or \textbf{yahoo-fin} or \textbf{both}. You \textbf{don't want} to use \textbf{rudimentary approaches like web scrapping as it will take too long time, and you are not sure about the data quality.}\\
 	The first step in data processing, regardless of whether it is for our assignment or any other project, is data acquisition. We need to have a dataset that can be used to train need based models.\\
 	Our assignment needs two main datasets; one for stock information and one for news articles. For the ETF information, we utilized Python library yfinance \cite{yfin} to download the data and stored it locally in JSON files. For the news articles, we utilized \textcolor{blue}{get\_news()} function of the yfinance library \cite{yfin} to grab the URLs and then grabbed the articles text and information via HTML parser, modified from Dr. Ryu's \cite{cryu} code. All the information grabbed is stored in appropriate JSON files to be utilized in model development. This enables us to have a defined set of data, which we can preprocess and utilize in our model development of sentiment analysis and investment returns.\\
+	\cref{fig:fngu_hist} shows a sample snapshot of FNGU market data acquired from yfinance \cite{yfin}, and \cref{fig:news_data} shows a sample snapshot of news data scraped from the web via our HTML scraper.
 	
-	\cref{fig:fngu_hist} shows a sample snapshot of FNGU market data acquired from yfinance \cite{yfin}.
-	
+	\mbox{}
 	\begin{figurehere}
 		\centering
 		\includegraphics[width=\linewidth]{images/fngu_hist.png}
 		\caption{Sample snapshot of FNGU market data}
 		\label{fig:fngu_hist}
+	\end{figurehere}
+	
+	\mbox{}
+	\begin{figurehere}
+		\centering
+		\includegraphics[width=\linewidth]{images/news_data.png}
+		\caption{Sample snapshot of scraped News data}
+		\label{fig:news_data}
 	\end{figurehere}
 	
 	\subsection{Data Pre-Processing} \label{data_preprocessing}

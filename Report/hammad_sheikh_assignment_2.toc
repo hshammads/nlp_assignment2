@@ -1,9 +1,9 @@
-\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
-\contentsline {section}{\numberline {2}Approach}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}Data Acquisition}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Data Pre-Processing}{4}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Data Classification and Sentiment Analysis}{4}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Model Development for Investment}{4}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Parameter and Feature Adjustment to Maximize Investment Returns}{4}{subsection.2.5}
-\contentsline {section}{\numberline {3}Conclusion and Future Work}{4}{section.3}
-\contentsline {section}{\numberline {4}Acknowledgements}{4}{section.4}
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Approach}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}Data Acquisition}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Data Pre-Processing}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Data Classification and Sentiment Analysis}{2}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Model Development for Investment}{2}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Parameter and Feature Adjustment to Maximize Investment Returns}{2}{subsection.2.5}
+\contentsline {section}{\numberline {3}Conclusion and Future Work}{2}{section.3}
+\contentsline {section}{\numberline {4}Acknowledgements}{2}{section.4}
