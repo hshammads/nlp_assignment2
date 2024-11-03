@@ -20,7 +20,7 @@ In this assignment, you will analyze the FNGU price data and related news articl
 
 1. **Download** the historical price data for FNGU (or FNGD or both) and its (directly or indirectly) related news articles for your selected period of four weeks from any free data sources (e.g., Yahoo Finance) and save the data in a JSON file format on your local machine. JSON is an open standard file format used for data storage or exchange. The price data should include market date, open price, high price, low price, closing price, and volume. The news articles may be related to the entire market, not necessarily only to FANG+. The direct FANG+-related news can be articles about the companies that you can download from the data source. Examples of indirect FANG+-related news can be the news about the market (Dow Jones \^DJI, S\&P \^GSPC, Nasdaq \^IXIC, or the industry FANG+ belongs to). Briefly describe the types of news articles you downloaded for your system, explaining why and how you downloaded the data.
 
-2. **Develop** a sentiment analysis model using Multilayer Perceptron (MLP) that can quantitatively estimate the impact of each news article on the TSLA price. Briefly describe
+2. **Develop** a sentiment analysis model using Multilayer Perceptron (MLP) that can quantitatively estimate the impact of each news article on the FNGU price. Briefly describe
 		\subitem (a) The methods used to (pre)process the news and price data for your MLP algorithm with justification and
 		\subitem (b) the method(s) used to analyze the news and quantify its impact that will be used for trade.
 
