@@ -76,27 +76,26 @@
 \section*{Assignment Information}
 This assignment can be completed individually or by a team with up to 5 members.\\
 Total score: 100\\
-Due date: 10/31/2024 11:59PM\\
+Due date: 12/01/2024 11:59PM\\
 Members: Hammad Sheikh, Matthew Do, Ryan Avancena \\
 Work distribution: Equal
 
-\iffalse
 \subsection*{Objectives}
-In this exercise, you will learn how to develop a sentiment analysis model and an an automated trading system relying on the analysis results.
+In this exercise, you will learn how to develop a sentiment analysis model and an automated trading system relying on the analysis results.
 \textcolor{blue}{Only Python programs written using Python 3.0 or higher will be accepted}. \textcolor{red}{NO Jupyter notebook or any other Python variants} will be accepted for efficient grading.\\
+\textbf{Change: get news articles for at least 4 weeks for all the members of ETF FNGU}
 
 $\hrulefill$
 \subsection*{About the dataset and problem to solve}
-A stock, in investment terms, represents ownership in a company. When you buy stocks, you essentially buy a small piece of that company. The stock price for a company is mainly determined by the current value of the company that can be computed by the company’s past financial data (e.g., earnings, revenues, profits, etc.) and future value determined by the company’s future performance, which is unknown. The intrinsic value of a company refers to the actual and inherent worth of the company based on both current and future value. Therefore, a stock price is determined by the current value and estimated (perceived) future value of the company. Investors buy stocks based on the company’s estimated intrinsic value. That’s why the stock prices inherently fluctuate depending on the market situation and the company’s future prospectus, which are typically published in news articles. The more information investors have, the better they can estimate the intrinsic value.
-\textbf{Tesla} may be one of the companies that generate the most news articles due to their market impact and technological innovations. In this assignment, you will analyze the Tesla stock (the stock symbol, \textbf{TSLA}) price data and related news articles to develop a simple trading system. Your trading system will be equipped with a sentiment analysis model that analyzes all the (directly or indirectly) Tesla-related news articles for about 10 years, computes its market impact, and trades only TSLA based on the impact. For example, your trading system will buy a certain number of shares if the news article is considered positive and the balance is enough to cover the trade. Otherwise, the system will sell a certain number of shares if the news article is negative and a sufficient number of shares are already owned. The \textcolor{green}{ultimate goal} is maximizing the \textcolor{green}{return} from the initial investment, utilizing the sentiment analysis model.
+A stock, in investment terms, represents ownership in a company. When you buy stocks, you essentially buy a small piece of that company. The stock price for a company is mainly determined by the current value of the company that can be computed by the company’s past financial data (e.g., earnings, revenues, profits, etc.) and future value determined by the company’s future performance, which is unknown. The intrinsic value of a company refers to the actual and inherent worth of the company based on both current and future value. Therefore, a stock price is determined by the current value and estimated (perceived) future value of the company. Investors buy stocks based on the company’s estimated intrinsic value. That’s why the stock prices inherently fluctuate depending on the market situation and the company’s future prospectus, which are typically published in news articles. The more information investors have, the better they can estimate the intrinsic value.\\An Exchange-Traded Fund (\textbf{ETF}) is a type of investment fund that holds a collection of assets such as stocks, bonds, commodities, or a mix of these. There are many ETFs covering specific sections of the market currently being traded in the market. Some ETFs are conservative (slow price change) and some are highly aggressive or volatile in price change. \textbf{FNGU} is one of the ETF funds that concentrates on the top 10 popular technology companies, also known as \textbf{FANG+}, which include META, AAPL, AMZN, NFLX, NVDA, GOOGL, MSFT, CRWD, AVGO, and \href{https://finance.yahoo.com/quote/FNGU/holdings/}{NOW}. The fund manager occasionally changes the holdings. FNGU is highly volatile due to high leverage (3x). The price of FNGU change when the price of any of these holdings change. As a pair of FNGU, \textbf{FNGD} follows the inverse of FNGU for those who want to bet against FNGU. If most of the holdings are up, FNGU will go up 3x, but FNGD will go down 3x, and vice versa. In other words, the price movement of FNGU and FNGD is inverse, so you can buy and sell either one for profit in either direction as long as you can correctly predict the direction without relying on a sell-short strategy. Due to the popularity, the size, and their technological innovations of all those companies in FNGU, they most likely generate lots of news articles that impact the price of FNGU as well as the market indices.\\In this assignment, you will analyze the FNGU price data and related news articles to develop a simple trading system. Your trading system will be equipped with a sentiment analysis model that analyzes all the (directly or indirectly) FNGU-related news articles for \textcolor{red}{at least four weeks}, computes its market impact, and trades only FNGU, FNGD, or both FNGU and FNGD based on the impact. For example, your trading system will buy a certain number of shares if the news article is considered positive and the balance is enough to cover the trade. Otherwise, the system will sell a certain number of shares if the news article is negative and a sufficient number of shares are already owned. The \textcolor{green}{ultimate goal} is maximizing the \textcolor{green}{return} from the initial investment, utilizing the sentiment analysis model.
 
 \subsection*{Required activities}
 \textcolor{red}{\textbf{Utilize} the \textbf{GPU} resources available on the \textbf{Nautilus} through the \textbf{Kubernetes}} for modeling (\textbf{NOT} by the JupyterHub) and \textcolor{red}{\textbf{write} an analysis report} about your system's modeling results and trading performance by answering all the questions below with your \textbf{\textcolor{red}{justification} supported \textcolor{red}{by the data}}.
 
 \begin{enumerate}
-	\item \textbf{Download} the historical price data for TSLA and its (directly or indirectly) related news articles between 1/1/2013 to the last market closing date (today or yesterday) from any free data sources (e.g., Yahoo Finance) and save the data in a JSON file format on your local machine. JSON is an open standard file format used for data storage or exchange. The price data should include market date, open price, high price, low price, closing price, and volume. The news articles may be related to the entire market, not necessarily only to TSLA. The direct TSLA-related news can be articles about the company that you can download from the data source. Examples of indirect TSLA-related news can be the news about the market (Dow Jones \^DJI, S\&P \^GSPC, Nasdaq \^IXIC, or the industry Tesla belongs to). Briefly describe the types of news articles you downloaded for your system, explaining why and how you downloaded the data.
+	\item \textbf{Download} the historical price data for FNGU (or FNGD or both) and its (directly or indirectly) related news articles for your selected period of four weeks from any free data sources (e.g., Yahoo Finance) and save the data in a JSON file format on your local machine. JSON is an open standard file format used for data storage or exchange. The price data should include market date, open price, high price, low price, closing price, and volume. The news articles may be related to the entire market, not necessarily only to FANG+. The direct FANG+-related news can be articles about the companies that you can download from the data source. Examples of indirect FANG+-related news can be the news about the market (Dow Jones \scalebox{.8}{\textsuperscript{$\wedge$}}DJI, S\&P \scalebox{.8}{\textsuperscript{$\wedge$}}GSPC, Nasdaq \scalebox{.8}{\textsuperscript{$\wedge$}}IXIC, or the industry FANG+ belongs to). Briefly describe the types of news articles you downloaded for your system, explaining why and how you downloaded the data.\\
 	
-	\item \textbf{Develop} a sentiment analysis model using Multilayer Perceptron (MLP) that can quantitatively estimate the impact of each news article on the TSLA price. Briefly describe 
+	\item \textbf{Develop} a sentiment analysis model using Multilayer Perceptron (MLP) that can quantitatively estimate the impact of each news article on the FNGU price. Briefly describe 
 		\subitem (a) The methods used to (pre)process the news and price data for your MLP algorithm with justification and 
 		\subitem (b) the method(s) used to analyze the news and quantify its impact that will be used for trade.
 	
@@ -129,12 +128,9 @@ A stock, in investment terms, represents ownership in a company. When you buy st
 \subsection*{What to submit}
 \begin{itemize}
 	\item \textcolor{blue}{One analysis report} includes \textcolor{blue}{all your member names}, \% contribution made by each member, and all the answers to the questions based on your analysis in \textbf{PDF} or \textbf{Word format}. If every member contributed equally, simply state \enquote{\textcolor{purple}{equal contribution}.} If your team does not agree on individual contributions, briefly write a task description for each member. Different grades may be assigned based on individual contributions, even if a group completed the work.
-	
 	\item \textbf{Upload one analysis report file} and \textbf{Python program file(s)}, individually. Please \textcolor{red}{DO NOT upload any zip file} since Canvas cannot open it.
-	
 	\item When you show some example data in your analysis report (when necessary), select only a few examples, not including the entire dataset.
-	
-	\item Submit only one for each team.
+	\item \textbf{Submit only one for each team.}
 \end{itemize}
 
 \subsection*{Grading criteria}
@@ -143,20 +139,19 @@ A stock, in investment terms, represents ownership in a company. When you buy st
 	\item The level of understanding as reflected in the report
 	\item Effort (10\%)
 \end{itemize}
-\fi
 
 $\hrulefill$
 
 \textit{Abstract} - Machine learning (ML) and Artificial Intelligence (AI) worlds are experiences tremendous growth. Their applications are uncountable. One realm of applications for ML and AI is Natural Language Processing (NLP). In this aspect, there are various classification
-models that assist with text classification and processing. Our goal for this assignment is to utilize NLP techniques in analyzing news data for Tesla to build a ML model that would maximize our investment returns. The stock data can be obtained via the Python libraries that Dr. Ryu \cite{cryu} defined. News articles will be scraped from the web.\\
-\textit{Keywords} - Stock Trading, Tesla, Natural Language Processing, Machine Learning
+models that assist with text classification and processing. Our goal for this assignment is to utilize NLP techniques in analyzing news data for ETF FNGU to build a ML model that would maximize our investment returns. The stock data can be obtained via the Python libraries that Dr. Ryu \cite{cryu} defined. News articles will be scraped from the web.\\
+\textit{Keywords} - Stock Trading, ETF, FNGU, Natural Language Processing, Machine Learning
 
 	\tableofcontents
 	
 	\section{Introduction} \label{introduction}
 	There is a lot of stock data available in the world. All the stocks are impacted by the environment and the economical status of the world. This information is shared via news articles, which are in text format. We need to able to analyze news data, identify patterns and sentiment, and utilize it to predict impact on stocks. However, due to the sheer size of data available and the amount of convolution, it is not an easy task for a human. If we can
 utilize the computing power and technology available in computers, we may be able to make an impact. This may not have been possible a few decades ago. However, with the expansion of ML and AI technologies, numerous applications become available. With the use of NLP, we can perform text classification and sentiment analysis.\\
-	Without generalizing too much, let us look at a specific stock, Tesla (ticker TSLA), with the goal of applying existing text classification and sentiment analysis algorithms on news and stock data, and analyzing their results for performance and accuracy to maximize our investment returns. 
+	Without generalizing too much, let us look at an ETF, ticker FNGU, with the goal of applying existing text classification and sentiment analysis algorithms on news and stock data, and analyzing their results for performance and accuracy to maximize our investment returns. 
 	
 	\section{Approach} \label{approach}
 	The generalized approach is shown below in \cref{fig:gen_approach}. (Data Acquisition $\rightarrow$ Data Pre-Processing $\rightarrow$ Data Classification and Sentiment Analysis $\rightarrow$ Model Development for Investment $\leftrightarrow$ Parameter and Feature Adjustment to Maximize Investment Returns.) Further details will be discussed in the following sections. 
@@ -174,15 +169,15 @@ utilize the computing power and technology available in computers, we may be abl
 	\subsection{Data Acquisition} \label{data_acquisition}
 	%\textit{\underline{Note from Dr. Ryu:}} You can use any package to download the data, but some popular Python packages may be \textbf{yfinance} or \textbf{yahoo-fin} or \textbf{both}. You \textbf{don't want} to use \textbf{rudimentary approaches like web scrapping as it will take too long time, and you are not sure about the data quality.}\\
 	The first step in data processing, regardless of whether it is for our assignment or any other project, is data acquisition. We need to have a dataset that can be used to train need based models.\\
-	Our assignment needs two main datasets; one for stock information and one for news articles. For the TSLA stock information, we utilized Python library yfinance \cite{yfin} to download the data and stored it locally in JSON files. For the news articles, we (\textcolor{red}{NEED TO FILL IN THIS INFORMATION}). This enables us to have a defined set of data, which we can preprocess and utilize in our model development of sentiment analysis and investment returns.\\
+	Our assignment needs two main datasets; one for stock information and one for news articles. For the ETF information, we utilized Python library yfinance \cite{yfin} to download the data and stored it locally in JSON files. For the news articles, we utilized \textcolor{blue}{get\_news()} function of the yfinance library \cite{yfin} to grab the URLs and then grabbed the articles text and information via HTML parser, modified from Dr. Ryu's \cite{cryu} code. All the information grabbed is stored in appropriate JSON files to be utilized in model development. This enables us to have a defined set of data, which we can preprocess and utilize in our model development of sentiment analysis and investment returns.\\
 	
-	\cref{fig:tsla_hist} shows a sample snapshot of TSLA market data acquired from yfinance \cite{yfin}.
+	\cref{fig:fngu_hist} shows a sample snapshot of FNGU market data acquired from yfinance \cite{yfin}.
 	
 	\begin{figurehere}
 		\centering
-		\includegraphics[width=\linewidth]{images/tsla_hist.png}
-		\caption{Sample snapshot of TSLA market data}
-		\label{fig:tsla_hist}
+		\includegraphics[width=\linewidth]{images/fngu_hist.png}
+		\caption{Sample snapshot of FNGU market data}
+		\label{fig:fngu_hist}
 	\end{figurehere}
 	
 	\subsection{Data Pre-Processing} \label{data_preprocessing}
