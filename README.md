@@ -34,14 +34,14 @@ To evaluate the performance of your trading algorithm, you need to **develop a s
 
 **Log every trade**, including the key transaction data such as  
   - (a) the transaction date,
-	- (b) trading type buy/sell,
+  - (b) trading type buy/sell,
   - (c) \# of shares traded,
   - (d) \$amount used for the trade, and
-  - (e) the current balance after the trade to a log file \enquote{\textcolor{purple}{trade\_log.json}} for future analysis, verification, or accounting purpose.
+  - (e) the current balance after the trade to a log file \enquote{\textcolor{purple}{trade\_log.json}} for future analysis, verification, or accounting purpose.  
 
-	**Display the trading summary**, including the
-		\subitem (a) total \$gain or \$loss for all trades and
-		\subitem (b) \% return compared to the initial balance (\$100,000.00).
+**Display the trading summary**, including the  
+  - (a) total \$gain or \$loss for all trades and
+  - (b) \% return compared to the initial balance (\$100,000.00).
 
 4. **Briefly describe** at least two methods or techniques (based on the relevant topics discussed in class) to improve the model performance and evaluation results on whether or not those methods improved the trading performance.
 
