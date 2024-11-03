@@ -49,7 +49,7 @@ $\color{red}\text{**Utilize** the **GPU** resources available on the **Nautilus*
 
 5. **Create word embeddings** based on Word2vec, other embedding method, or pre-trained embedding for your model and compare the trading performance with the best model without relying on word embeddings.
 
-$\color{red}\text{**Warning:**}$ Although you can reuse any source codes available on the Internet, you are not allowed to share your codes with any other team or students in this class. Any student or team violating this policy will receive a **ZERO** score for this assignment, potentially for all the remaining assignments.
+**$\color{red}\text{Warning:}$** Although you can reuse any source codes available on the Internet, you are not allowed to share your codes with any other team or students in this class. Any student or team violating this policy will receive a **ZERO** score for this assignment, potentially for all the remaining assignments.
 
 ## What to submit
 1.  \textcolor{blue}{One analysis report} includes \textcolor{blue}{all your member names}, \% contribution made by each member, and all the answers to the questions based on your analysis in **PDF** or **Word format**. If every member contributed equally, simply state \enquote{\textcolor{purple}{equal contribution}.} If your team does not agree on individual contributions, briefly write a task description for each member. Different grades may be assigned based on individual contributions, even if a group completed the work.
