@@ -37,7 +37,7 @@ In this assignment, you will analyze the FNGU price data and related news articl
   - (b) trading type buy/sell,
   - (c) \# of shares traded,
   - (d) \$amount used for the trade, and
-  - (e) the current balance after the trade to a log file $\color{purple}\text{"trade}$\_ $\color{purple}\text{log.json"}$ for future analysis, verification, or accounting purpose.  
+  - (e) the current balance after the trade to a log file $\color{purple}\text{"trade}$ \_$\color{purple}\text{log.json"}$ for future analysis, verification, or accounting purpose.  
 
   **Display the trading summary**, including the  
   - (a) total \$gain or \$loss for all trades and
