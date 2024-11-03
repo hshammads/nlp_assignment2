@@ -26,8 +26,8 @@ In this assignment, you will analyze the FNGU price data and related news articl
 
 3. **Backtest** your trading system based on the sentiment analysis model developed in (2) and measure its performance. Backtesting means testing the effectiveness of trading systems that utilize specific trading algorithms. In this case, your sentiment analysis model is a trading algorithm. For the backtesting, assume your account has an initial investment balance of \$100,000, and buy/sell orders will always be filled without trading fees.
 
-To evaluate the performance of your trading algorithm, you need to **develop a simple trading system** that will buy a certain number of TSLA shares only if the balance is sufficient to cover the purchase and the positive market impact computed by the model or sell a certain number of shares only if it already holds enough number of shares ($\color{red}\text{no short sell allowed}$) and the negative market impact.
-**Evaluate your system’s trading performance** \underline{so far} by calculating the following simple metrics\\
+To evaluate the performance of your trading algorithm, you need to **develop a simple trading system** that will buy a certain number of FNGU shares only if the balance is sufficient to cover the purchase and the positive market impact computed by the model or sell a certain number of shares only if it already holds enough number of shares ($\color{red}\text{no short sell allowed}$) and the negative market impact.  
+**Evaluate your system’s trading performance** <u>so far</u> by calculating the following simple metrics  
   (a) \$gain or \$loss for each trade,
   (b) the total $gain or $loss for all trades,
   (c) \% return compared to the initial balance.
