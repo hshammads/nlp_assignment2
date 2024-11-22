@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  3 NOV 2024 12:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  20 NOV 2024 16:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count80
 \c@section=\count81
@@ -1151,12 +1151,12 @@ Package caption Info: End \AtBeginDocument code.
 * \topmargin=-51.45378pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
 * \marginparwidth=4.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1185,7 +1185,11 @@ File: uesvect.fd
 \tf@toc=\write5
 \openout5 = `hammad_sheikh_assignment_2.toc'.
 
-<images/gen_approach.png, id=54, 462.72874pt x 680.5425pt>
+ [1
+
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<images/gen_approach.png, id=68, 462.72874pt x 680.5425pt>
 File: images/gen_approach.png Graphic file (type png)
 <use images/gen_approach.png>
 Package pdftex.def Info: images/gen_approach.png  used on input line 165.
@@ -1196,23 +1200,17 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 166.
 See the caption package documentation for explanation.
 
-[1
-
-
-{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./image
-s/gen_approach.png>]
-<images/fngu_hist.png, id=79, 1472.50125pt x 202.7575pt>
+<images/fngu_hist.png, id=77, 1472.50125pt x 202.7575pt>
 File: images/fngu_hist.png Graphic file (type png)
 <use images/fngu_hist.png>
 Package pdftex.def Info: images/fngu_hist.png  used on input line 182.
 (pdftex.def)             Requested size: 244.33128pt x 33.64226pt.
 
-
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 183.
 See the caption package documentation for explanation.
 
-<images/news_data.png, id=80, 944.52875pt x 756.8275pt>
+<images/news_data.png, id=78, 944.52875pt x 756.8275pt>
 File: images/news_data.png Graphic file (type png)
 <use images/news_data.png>
 Package pdftex.def Info: images/news_data.png  used on input line 190.
@@ -1227,22 +1225,46 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 212.
 See the caption package documentation for explanation.
 
-(./hammad_sheikh_assignment_2.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 29--31
-[]\OT1/cmr/m/n/10 scikit learn, ``train[]test[]split,'' []$https : / /
+[2 <./images/gen_approach.png> <./images/fngu_hist.png> <./images/news_data.png
+>] (./hammad_sheikh_assignment_2.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 25--27
+\OT1/cmr/m/n/12 ton, []$https : / / www . fullerton . edu / ecs / cs /
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 29--31
-\OT1/cmr/m/n/10 scikit-[]learn . org / stable / modules / generated / sklearn .
-
+[]\OT1/cmr/m/n/12 scikit learn, ``train[]test[]split,'' []$https :
  []
 
-) [2 <./images/fngu_hist.png> <./images/news_data.png>]
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--31
+\OT1/cmr/m/n/12 / / scikit-[]learn . org / stable / modules /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--31
+\OT1/cmr/m/n/12 generated / sklearn . model[]selection .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--38
+\OT1/cmr/m/n/12 ton, []$https : / / www . fullerton . edu / ecs / cs /
+ []
+
+
+Underfull \hbox (badness 6094) in paragraph at lines 40--42
+[]\OT1/cmr/m/n/12 K. Av-ery, Cal-i-for-nia State Uni-ver-sity,
+ []
+
+
+Underfull \hbox (badness 7540) in paragraph at lines 40--42
+\OT1/cmr/m/n/12 Fuller-ton, []$https : / / www . fullerton . edu / ecs /
+ []
+
+) [3]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 233.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 233.
-
-(./hammad_sheikh_assignment_2.aux)
+ (./hammad_sheikh_assignment_2.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 233.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 233.
 Package rerunfilecheck Info: File `hammad_sheikh_assignment_2.out' has not chan
@@ -1254,25 +1276,24 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 31191 strings out of 492649
- 727977 string characters out of 6129622
- 942440 words of memory out of 5000000
- 34561 multiletter control sequences out of 15000+600000
- 8058 words of font info for 33 fonts, out of 8000000 for 9000
+ 31207 strings out of 492649
+ 728153 string characters out of 6129622
+ 929465 words of memory out of 5000000
+ 34571 multiletter control sequences out of 15000+600000
+ 11005 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,12n,96p,1464b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
-local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on hammad_sheikh_assignment_2.pdf (2 pages, 323015 bytes).
+ 62i,12n,96p,1464b,624s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on hammad_sheikh_assignment_2.pdf (3 pages, 305839 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
+ 145 PDF objects out of 1000 (max. 8388607)
+ 125 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 500000)
  100 words of extra memory for PDF output out of 10000 (max. 10000000)
 
