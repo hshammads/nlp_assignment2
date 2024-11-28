@@ -281,10 +281,7 @@ class MLP(nn.Module):
     
     FIND A WAY TO HOOK UP TRANSFORMER WITH MLP SO YOU CAN PASS THE LOSS BACK TO TRANSFORMER
     
-    
-    
-    
-    
+
     '''
     
     

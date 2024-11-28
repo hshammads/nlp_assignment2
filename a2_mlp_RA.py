@@ -76,26 +76,68 @@ class Helper:
         start_date = datetime.datetime(2024, 10, 23)
         end_date = datetime.datetime.now()
 
-        FANG_plus = ["META", "AAPL", "AMZN", "NFLX", "NVDA", "GOOGL", "MSFT", "CRWD", "AVGO", "NOW"]
+        FANG_plus = ["META", "AAPL", "AMZN", "NFLX", "NVDA", "GOOG", "MSFT", "CRWD", "AVGO", "NOW"]
 
         FANG_plus_dict = {}
         FANG_plus_normalized = {}
 
-        for company in FANG_plus:
+        # data_folder = ".\data"
 
+        FANG_plus_dict = defaultdict(lambda: defaultdict(list))  # {company: {date: [open values]}}
+
+        for company in FANG_plus:
             ticker = yf.download(company, start=start_date, end=end_date)
             dates = ticker.index
-            date_list = dates.tolist()
-            date_list = [date.strftime('%Y%m%d') for date in dates] # Used to reframe to 'YYYYMMDD'
-            open_list = ticker.iloc[:, 4].tolist() # 4 is 'Open' values
-            date_diff_dict = {}
+            date_list = [date.strftime('%Y%m%d') for date in dates]
+            open_list = ticker['Open'].tolist()
+            
+            for date, open_value in zip(date_list, open_list):
+                FANG_plus_dict[company][date].append(open_value)
 
-            # This sets the current date's value as (tomorrow's open) - (today's open)
+        average_open_per_company = {
+            company: {date: np.mean(open_values) for date, open_values in dates.items()}
+            for company, dates in FANG_plus_dict.items()
+        }
 
-            for i in range(len(ticker) - 1):
-                date_diff_dict[date_list[i]] = open_list[i+1] - open_list[i]
+        for company, date_averages in average_open_per_company.items():
+            print(f"Company: {company}")
+            for date, avg_open in date_averages.items():
+                print(f"  Date: {date}, Average Open: {avg_open}")
+            print("-" * 40)
 
-            FANG_plus_dict[company] = date_diff_dict
+        date_diff_df = average_open_per_company.copy()
+        date_diff_df['diff'] = date_diff_df['']
+
+
+        """
+
+        for date_folder in os.listdir(data_folder):
+            date_path = os.path.join(data_folder, date_folder)
+
+            if os.path.isdir(date_path):
+                json_path = os.path.join(date_path, "tickers_hist.json")
+                
+                with open(json_path, 'r') as f:
+                    data = json.load(f)
+                    cols = pd.MultiIndex.from_tuples(data["columns"])
+                    df = pd.DataFrame(data["data"],index=data["index"],columns=cols)
+                
+
+                    for company in FANG_plus:
+                        opens = df["Open", company]
+                        # print(opens)
+                        # all_opens[date_folder][company].append(opens)
+                        all_opens[date_folder][company] = opens.tolist()
+                        opens_avg = np.mean(all_opens[date_folder][company])
+                        print(date_folder)
+                        print(company)
+                        print(opens_avg) 
+                        break
+                    break
+
+        """
+        
+
 
         '''
         Here, we normalize values PER TICKER in a range of [-1,1].
@@ -104,39 +146,39 @@ class Helper:
         and we find all the positive values and normalize then between [0,1].
         '''    
 
-        for company, date_diff_dict in FANG_plus_dict.items():
+        # for company, date_diff_dict in FANG_plus_dict.items():
             
-            diffs = np.array(list(date_diff_dict.values()))
-            pos_diffs = diffs[diffs > 0]
-            neg_diffs = diffs[diffs < 0]
+        #     diffs = np.array(list(date_diff_dict.values()))
+        #     pos_diffs = diffs[diffs > 0]
+        #     neg_diffs = diffs[diffs < 0]
 
-            if len(pos_diffs) > 0:
-                pos_min = pos_diffs.min()
-                pos_max = pos_diffs.max()
-                normalized_pos = (pos_diffs - pos_min) / (pos_max - pos_min)
-            else:
-                normalized_pos = np.array([])
+        #     if len(pos_diffs) > 0:
+        #         pos_min = pos_diffs.min()
+        #         pos_max = pos_diffs.max()
+        #         normalized_pos = (pos_diffs - pos_min) / (pos_max - pos_min)
+        #     else:
+        #         normalized_pos = np.array([])
 
-            if len(neg_diffs) > 0:
-                neg_min = neg_diffs.min()
-                neg_max = neg_diffs.max()
-                normalized_neg = (neg_diffs - neg_min) / (neg_max - neg_min) - 1
-            else:
-                normalized_neg = np.array([])
+        #     if len(neg_diffs) > 0:
+        #         neg_min = neg_diffs.min()
+        #         neg_max = neg_diffs.max()
+        #         normalized_neg = (neg_diffs - neg_min) / (neg_max - neg_min) - 1
+        #     else:
+        #         normalized_neg = np.array([])
 
-            normalized_vals = []
+        #     normalized_vals = []
 
-            for diff in diffs:
-                if diff > 0:
-                    normalized_vals.append(normalized_pos[pos_diffs == diff][0])
-                elif diff < 0:
-                    normalized_vals.append(normalized_neg[neg_diffs == diff][0])
-                else:
-                    normalized_vals.append(0)  
+        #     for diff in diffs:
+        #         if diff > 0:
+        #             normalized_vals.append(normalized_pos[pos_diffs == diff][0])
+        #         elif diff < 0:
+        #             normalized_vals.append(normalized_neg[neg_diffs == diff][0])
+        #         else:
+        #             normalized_vals.append(0)  
            
-            FANG_plus_normalized[company] = dict(zip(date_diff_dict.keys(), normalized_vals))
+        #     FANG_plus_normalized[company] = dict(zip(date_diff_dict.keys(), normalized_vals))
 
-        return FANG_plus_normalized
+        # return FANG_plus_normalized
     
     '''
     Function: loadNewsData(train%, val%, test%)
@@ -191,7 +233,8 @@ class Helper:
 
                     all_articles.append((date, ticker, article))
         
-        random.shuffle(all_articles)
+        # URGENT: ADD THIS BACK AFTER
+        # random.shuffle(all_articles)
 
         # Splits are based off of training & val split.
         # There will be a test_data, but the param is not used.
@@ -254,16 +297,16 @@ class Transformer:
     '''
     Function: cleanArticle(self, article)
 
-    Input: an article
+    Input: List of tuples (articles)
 
     Output: removal of stopwords, newlines, and other various symbols
     
     '''
 
     def cleanArticle(self, article):
-        date = article[0]  # Extract date
-        ticker = article[1]  # Extract ticker
-        text = article[2]  # Extract the article content
+        # date = article[0]  
+        # ticker = article[1] 
+        text = article
         
         # TEXT-CLEANING
         text = text.lower()
@@ -280,14 +323,14 @@ class Transformer:
         words = [word for word in words if word not in stop_words]
         text = ' '.join(words)
 
-        print(text)  # Print cleaned article (or return it)
+        # print(text)  # Print cleaned article (or return it)
         return text
 
 
     '''
     Function: getArticleEmbedding(self, article)
 
-    Input: the whole article from a data point (date, ticker, article)
+    Input: the whole article from a data point (date, ticker, article) - tuple
 
     Output: a 784-dimensional embedding of the article
 
@@ -297,27 +340,32 @@ class Transformer:
     '''
 
     def getArticleEmbedding(self, input):
-        cleaned_article = self.cleanArticle(input)
+        date = input[0]  
+        ticker = input[1] 
+        text = input[2]  
+        cleaned_text = self.cleanArticle(text)
 
         # Tokenize the input
-        # inputs = self.tokenizer(input, padding=True, truncation=True, max_length=512, return_tensors="pt")
-        # input_ids = inputs['input_ids']     # tokens
+        inputs = self.tokenizer(cleaned_text, padding=True, truncation=True, max_length=512, return_tensors="pt")       # 
+        input_ids = inputs['input_ids']     # tokens
+
+        # Debugging: See the words from ids
         # print(self.tokenizer.convert_ids_to_tokens(inputs['input_ids'][0]))
 
-        # chunk_size = 512
-        # chunks = [input_ids[:, i:i + chunk_size] for i in range(0, input_ids.size(1), chunk_size)]
+        chunk_size = 512
+        chunks = [input_ids[:, i:i + chunk_size] for i in range(0, input_ids.size(1), chunk_size)]
 
-        # embeddings = []
-        # for chunk in chunks:
-        #     chunk = chunk.to(self.device)
-        #     outputs = self.model(chunk)
-        #     article_embedding = outputs.last_hidden_state[:, 0, :] # this goes off of [CLS] token, which identifies the relevant info we want
-        #     embeddings.append(article_embedding) 
+        embeddings = []
+        for chunk in chunks:
+            chunk = chunk.to(self.device)
+            outputs = self.model(chunk)
+            article_embedding = outputs.last_hidden_state[:, 0, :] # this goes off of [CLS] token, which identifies the relevant info we want
+            embeddings.append(article_embedding) 
 
-        # # print("Articles are embedded.")
-        # # print(embeddings)
+        opening_price = opens_data[ticker].get(date, None)  # None is the default if the date is not found
+        print(date, ticker, opening_price)
 
-        # return torch.mean(torch.stack(embeddings), dim=0)
+        return torch.mean(torch.stack(embeddings), dim=0)
 
 
 if __name__ == "__main__":
@@ -325,15 +373,12 @@ if __name__ == "__main__":
     articleToEmbedding = Transformer()
     train_data, val_data, test_data = Helper.loadNewsData()
     opens_data = Helper.getNormalizedOpens()
+    # print(opens_data)
 
-    # train data - list of tuples
-    first_entry = train_data[0]
-    embedding = articleToEmbedding.getArticleEmbedding(first_entry)
+    # sample = train_data[:30]        # train data - list of tuples
+    # for article in sample:
+    #     embedding = articleToEmbedding.getArticleEmbedding(article)
 
-    # batches = 
-    
-    # for batch in batches:
-    #     embeddings = articleToEmbedding.getArticleEmbedding(batch)
 
     # mlp = MLP(articleToEmbedding=articleToEmbedding, input_size=1024, hidden_size=512, output_size=1)
     # mlp.apply(init_weights)
