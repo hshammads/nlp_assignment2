@@ -4,6 +4,8 @@ import requests
 import pandas as pd
 import requests
 import os
+import nltk
+import re
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import json
 from collections import defaultdict
@@ -30,6 +32,29 @@ before we pass it into our MLP.
 
 **************************************************************************
 '''
+
+# function to fix the JSON file
+def fix_json_file(json_path, date):
+    with open(json_path, 'r') as file:
+        data = file.read()
+
+    # Fix the invalid object separation by replacing '},{"' with ',{'
+    fixed_data = data.replace('},{', ',')
+
+    try:
+        # Attempt to load the fixed data
+        json_data = json.loads(fixed_data)
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON: {e} for {date}")
+        return None  
+
+    # Save the fixed JSON data back to the file
+    with open(json_path, 'w') as file:
+        json.dump(json_data, file, indent=4)
+
+    print(f"JSON file '{json_path}' has been fixed.")
+    return json_data
+
 
 class Helper:
 
@@ -134,8 +159,8 @@ class Helper:
         # Below only works locally for Matt.
         # data_folder = "c:\\Users\\Matt\\Desktop\\nlp_assignment2\\data"
 
-        # for ryan lol
-        data_folder = "./data"
+        # Works locally for Ryan.
+        data_folder = ".\data"
 
         all_data = defaultdict(lambda: defaultdict(list))
 
@@ -144,12 +169,10 @@ class Helper:
 
             if os.path.isdir(date_path):
                 json_path = os.path.join(date_path, "news_data.json")
-                
-                with open(json_path, 'r') as f:
-                    data = json.load(f)
 
-                for idx, article in enumerate(data):
-                    article = article.get(f"{idx}")
+                data = fix_json_file(json_path, json_path)
+
+                for idx, article in data.items():
                     ticker = article.get('ticker')
                     whole_article = article.get('whole_article')
                     all_data[date_folder][ticker].append(whole_article)
@@ -229,6 +252,39 @@ class Transformer:
         '''
     
     '''
+    Function: cleanArticle(self, article)
+
+    Input: an article
+
+    Output: removal of stopwords, newlines, and other various symbols
+    
+    '''
+
+    def cleanArticle(self, article):
+        date = article[0]  # Extract date
+        ticker = article[1]  # Extract ticker
+        text = article[2]  # Extract the article content
+        
+        # TEXT-CLEANING
+        text = text.lower()
+        text = text.strip()  # leading/trailing spaces
+        text = re.sub(r'\s+', ' ', text)  # Replace multiple spaces with a single space
+        
+        # Remove non-alphabetic characters, URLs, or any other custom cleaning
+        text = re.sub(r'http\S+', '', text)  # URLs
+        text = re.sub(r'[^a-zA-Z\s]', '', text)  # non-alphabetic characters
+
+        # Remove stopwords
+        stop_words = set(nltk.corpus.stopwords.words('english'))
+        words = text.split()
+        words = [word for word in words if word not in stop_words]
+        text = ' '.join(words)
+
+        print(text)  # Print cleaned article (or return it)
+        return text
+
+
+    '''
     Function: getArticleEmbedding(self, article)
 
     Input: the whole article from a data point (date, ticker, article)
@@ -241,160 +297,27 @@ class Transformer:
     '''
 
     def getArticleEmbedding(self, input):
+        cleaned_article = self.cleanArticle(input)
+
         # Tokenize the input
-        inputs = self.tokenizer(input, padding=True, truncation=True, max_length=512, return_tensors="pt")
-        
-        input_ids = inputs['input_ids']
-        
-        chunk_size = 512
-        chunks = [input_ids[:, i:i + chunk_size] for i in range(0, input_ids.size(1), chunk_size)]
+        # inputs = self.tokenizer(input, padding=True, truncation=True, max_length=512, return_tensors="pt")
+        # input_ids = inputs['input_ids']     # tokens
+        # print(self.tokenizer.convert_ids_to_tokens(inputs['input_ids'][0]))
 
-        embeddings = []
-        for chunk in chunks:
-            chunk = chunk.to(self.device)
-            outputs = self.model(chunk)
-            article_embedding = outputs.last_hidden_state[:, 0, :] # this goes off of [CLS] token, which identifies the relevant info we want
-            embeddings.append(article_embedding) 
+        # chunk_size = 512
+        # chunks = [input_ids[:, i:i + chunk_size] for i in range(0, input_ids.size(1), chunk_size)]
 
-        return torch.mean(torch.stack(embeddings), dim=0)
+        # embeddings = []
+        # for chunk in chunks:
+        #     chunk = chunk.to(self.device)
+        #     outputs = self.model(chunk)
+        #     article_embedding = outputs.last_hidden_state[:, 0, :] # this goes off of [CLS] token, which identifies the relevant info we want
+        #     embeddings.append(article_embedding) 
 
+        # # print("Articles are embedded.")
+        # # print(embeddings)
 
-
-class MLP(nn.Module):
-
-    def __init__(self, articleToEmbedding, input_size, hidden_size, output_size, dropout=0.5):
-        super().__init__()
-        self.transformer = articleToEmbedding
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(dropout)
-        self.fc2 = nn.Linear(hidden_size, output_size)
-
-    def forward(self, x):
-        x = self.fc1(x)
-        x = self.relu(x)
-        x = self.dropout(x)
-        x = self.fc2(x)
-        return x
-    
-    '''
-    
-    FIND A WAY TO HOOK UP TRANSFORMER WITH MLP SO YOU CAN PASS THE LOSS BACK TO TRANSFORMER
-    
-    
-    
-    
-    
-    '''
-    
-    
-    def get_batches(self, train_data, opens, batch_size=5):
-
-        batch = torch.empty(batch_size, 1024)  # 768 is the embedding dimension
-        true_labels = torch.empty(batch_size)
-
-        for batch_idx in range(batch_size):
-            while True:
-                random_sample = random.choice(train_data)
-                date = random_sample[0]
-                company = random_sample[1]
-                article = random_sample[2]
-                
-                embedding = self.transformer.getArticleEmbedding(article)
-                batch[batch_idx] = embedding
-
-                adjusted_date = Helper.find_next_available_date(date, opens[company].keys())
-                true_labels[batch_idx] = opens[company][adjusted_date]
-
-                break  # Move to the next item in the batch
-
-        return batch, true_labels
-
-    def train_model(self, articles_data, opens_data, epochs=20, batch_size=32, learning_rate=0.001, accuracy_threshold=0.10):
-        optimizer = optim.Adam(list(self.parameters()) + list(self.transformer.model.parameters()), lr=learning_rate)
-        criterion = nn.MSELoss() 
-        
-        for epoch in range(epochs):
-            self.train()
-            
-            total_train_loss = 0.0
-            total_train_accuracy = 0.0
-            num_train_batches = 0
-            
-            batch_data, true_labels = self.get_batches(articles_data, opens_data, batch_size=batch_size)
-            
-            batch_data = batch_data.to(self.fc1.weight.device)
-            true_labels = true_labels.to(self.fc1.weight.device)
-            
-            predictions = self(batch_data).squeeze()
-            true_labels = true_labels.squeeze()
-
-            predictions = predictions.unsqueeze(0) if predictions.dim() == 0 else predictions
-            true_labels = true_labels.unsqueeze(0) if true_labels.dim() == 0 else true_labels
-
-            print(predictions)
-            print(true_labels)
-            
-            loss = criterion(predictions, true_labels)
-
-            optimizer.zero_grad()
-            loss.backward()
-
-            # for name, param in self.named_parameters():
-            #     if param.grad is not None:
-            #         print(f"Gradient norm for {name}: {param.grad.norm().item()}")
-
-            optimizer.step()
-
-            total_train_loss += loss.item()
-
-            # Calculate accuracy for this batch
-            abs_error = torch.abs(predictions - true_labels)
-            batch_accuracy = (abs_error <= accuracy_threshold * true_labels).float().mean().item() * 100
-            total_train_accuracy += batch_accuracy
-            num_train_batches += 1
-
-            avg_train_loss = total_train_loss / num_train_batches
-            avg_train_accuracy = total_train_accuracy / num_train_batches
-            print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_train_loss:.4f}, Accuracy: {avg_train_accuracy:.2f}%")
-
-            '''
-            This is for the validation step, which we will get to once we figure out training
-            
-            self.eval()
-            with torch.no_grad():  # Disables gradient computation for validation
-                val_batch_data, val_true_labels = self.get_batches(val_data, opens_data, batch_size=batch_size)
-                val_batch_data = val_batch_data.to(self.fc1.weight.device)
-                val_true_labels = val_true_labels.to(self.fc1.weight.device)
-                val_predictions = self(val_batch_data).squeeze()
-                val_true_labels = val_true_labels.squeeze()
-                val_predictions = val_predictions.unsqueeze(0) if val_predictions.dim() == 0 else val_predictions
-                val_true_labels = val_true_labels.unsqueeze(0) if val_true_labels.dim() == 0 else val_true_labels
-                # print(val_predictions)
-                # print(val_true_labels)
-                val_loss = criterion(val_predictions, val_true_labels)
-
-                abs_error = torch.abs(val_predictions - val_true_labels) 
-                accuracy = (abs_error <= accuracy_threshold * val_true_labels).float().mean().item() * 100
-
-                rmse = torch.sqrt(torch.mean((val_predictions - val_true_labels) ** 2))
-
-                print(f"Validation Loss: {val_loss.item():.4f}, Accuracy (within {accuracy_threshold*100}%): {accuracy:.2f}%, RMSE: {rmse}")
-                print("")
-                    
-                # Free up memory
-                del val_batch_data, val_true_labels, val_predictions
-                torch.cuda.empty_cache()  
-            '''
-
-            del batch_data, true_labels, predictions  # Delete variables to free memory
-            torch.cuda.empty_cache() # Free cache for more memory
-
-def init_weights(m):
-    if isinstance(m, nn.Linear):
-        nn.init.xavier_uniform_(m.weight)
-        if m.bias is not None:
-            nn.init.zeros_(m.bias)
+        # return torch.mean(torch.stack(embeddings), dim=0)
 
 
 if __name__ == "__main__":
@@ -402,6 +325,16 @@ if __name__ == "__main__":
     articleToEmbedding = Transformer()
     train_data, val_data, test_data = Helper.loadNewsData()
     opens_data = Helper.getNormalizedOpens()
-    mlp = MLP(articleToEmbedding=articleToEmbedding, input_size=1024, hidden_size=512, output_size=1)
-    mlp.apply(init_weights)
-    mlp.train_model(train_data, opens_data, epochs=100, batch_size=5, learning_rate=0.001, accuracy_threshold=0.30)
+
+    # train data - list of tuples
+    first_entry = train_data[0]
+    embedding = articleToEmbedding.getArticleEmbedding(first_entry)
+
+    # batches = 
+    
+    # for batch in batches:
+    #     embeddings = articleToEmbedding.getArticleEmbedding(batch)
+
+    # mlp = MLP(articleToEmbedding=articleToEmbedding, input_size=1024, hidden_size=512, output_size=1)
+    # mlp.apply(init_weights)
+    # mlp.train_model(train_data, opens_data, epochs=100, batch_size=5, learning_rate=0.001, accuracy_threshold=0.30)
