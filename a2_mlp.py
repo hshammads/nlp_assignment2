@@ -132,10 +132,10 @@ class Helper:
     def loadNewsData(train_split=0.85, val_split=0.15, test_split=0):
 
         # Below only works locally for Matt.
-        data_folder = "c:\\Users\\Matt\\Desktop\\nlp_assignment2\\data"
+        # data_folder = "c:\\Users\\Matt\\Desktop\\nlp_assignment2\\data"
 
-        # This one works for Nautilus
-        data_folder = "/data"
+        # for ryan lol
+        data_folder = "./data"
 
         all_data = defaultdict(lambda: defaultdict(list))
 
@@ -281,10 +281,7 @@ class MLP(nn.Module):
     
     FIND A WAY TO HOOK UP TRANSFORMER WITH MLP SO YOU CAN PASS THE LOSS BACK TO TRANSFORMER
     
-    
-    
-    
-    
+
     '''
     
     
