@@ -15,6 +15,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import random
+from sklearn.preprocessing import MinMaxScaler
 
 '''
 **************************************************************************
@@ -81,8 +82,6 @@ class Helper:
         FANG_plus_dict = {}
         FANG_plus_normalized = {}
 
-        # data_folder = ".\data"
-
         FANG_plus_dict = defaultdict(lambda: defaultdict(list))  # {company: {date: [open values]}}
 
         for company in FANG_plus:
@@ -99,86 +98,49 @@ class Helper:
             for company, dates in FANG_plus_dict.items()
         }
 
+        # debug
+        # for company, date_averages in average_open_per_company.items():
+        #     print(f"Company: {company}")
+        #     for date, avg_open in date_averages.items():
+        #         print(f"  Date: {date}, Average Open: {avg_open}")
+        #     print("-" * 40)
+
+        date_diff_list = []
+
         for company, date_averages in average_open_per_company.items():
-            print(f"Company: {company}")
-            for date, avg_open in date_averages.items():
-                print(f"  Date: {date}, Average Open: {avg_open}")
-            print("-" * 40)
-
-        date_diff_df = average_open_per_company.copy()
-        date_diff_df['diff'] = date_diff_df['']
-
-
-        """
-
-        for date_folder in os.listdir(data_folder):
-            date_path = os.path.join(data_folder, date_folder)
-
-            if os.path.isdir(date_path):
-                json_path = os.path.join(date_path, "tickers_hist.json")
+            # sort dates to ensure chronological order
+            sorted_dates = sorted(date_averages.keys())
+            
+            # differences for consecutive dates
+            for i in range(1, len(sorted_dates)):
+                current_date = sorted_dates[i]
+                previous_date = sorted_dates[i - 1]
+                diff = date_averages[current_date] - date_averages[previous_date]
                 
-                with open(json_path, 'r') as f:
-                    data = json.load(f)
-                    cols = pd.MultiIndex.from_tuples(data["columns"])
-                    df = pd.DataFrame(data["data"],index=data["index"],columns=cols)
-                
+                date_diff_list.append({
+                    "Company": company,
+                    "Date": current_date,
+                    "Diff": diff
+                })
 
-                    for company in FANG_plus:
-                        opens = df["Open", company]
-                        # print(opens)
-                        # all_opens[date_folder][company].append(opens)
-                        all_opens[date_folder][company] = opens.tolist()
-                        opens_avg = np.mean(all_opens[date_folder][company])
-                        print(date_folder)
-                        print(company)
-                        print(opens_avg) 
-                        break
-                    break
-
-        """
-        
-
+        date_diff_df = pd.DataFrame(date_diff_list)
 
         '''
-        Here, we normalize values PER TICKER in a range of [-1,1].
 
-        We find all the negative values and normalize them between [-1,0]
-        and we find all the positive values and normalize then between [0,1].
+        CHANGED BY RYAN 
+
+        Here, we normalize values PER TICKER in a range of [0,1].
+
+        Using MinMaxScaler from Scikit-Learn.
+
         '''    
+        scaler = MinMaxScaler()
 
-        # for company, date_diff_dict in FANG_plus_dict.items():
-            
-        #     diffs = np.array(list(date_diff_dict.values()))
-        #     pos_diffs = diffs[diffs > 0]
-        #     neg_diffs = diffs[diffs < 0]
+        date_diff_df['Normalized'] = date_diff_df.groupby("Company")["Diff"].transform(
+            lambda x: scaler.fit_transform(x.values.reshape(-1, 1)).flatten()   # reshape to 2d, then 1d
+        )
 
-        #     if len(pos_diffs) > 0:
-        #         pos_min = pos_diffs.min()
-        #         pos_max = pos_diffs.max()
-        #         normalized_pos = (pos_diffs - pos_min) / (pos_max - pos_min)
-        #     else:
-        #         normalized_pos = np.array([])
-
-        #     if len(neg_diffs) > 0:
-        #         neg_min = neg_diffs.min()
-        #         neg_max = neg_diffs.max()
-        #         normalized_neg = (neg_diffs - neg_min) / (neg_max - neg_min) - 1
-        #     else:
-        #         normalized_neg = np.array([])
-
-        #     normalized_vals = []
-
-        #     for diff in diffs:
-        #         if diff > 0:
-        #             normalized_vals.append(normalized_pos[pos_diffs == diff][0])
-        #         elif diff < 0:
-        #             normalized_vals.append(normalized_neg[neg_diffs == diff][0])
-        #         else:
-        #             normalized_vals.append(0)  
-           
-        #     FANG_plus_normalized[company] = dict(zip(date_diff_dict.keys(), normalized_vals))
-
-        # return FANG_plus_normalized
+        return date_diff_df
     
     '''
     Function: loadNewsData(train%, val%, test%)
@@ -196,7 +158,7 @@ class Helper:
     
     '''
 
-    def loadNewsData(train_split=0.85, val_split=0.15, test_split=0):
+    def loadNewsData():
 
         # Below only works locally for Matt.
         # data_folder = "c:\\Users\\Matt\\Desktop\\nlp_assignment2\\data"
@@ -239,15 +201,16 @@ class Helper:
         # Splits are based off of training & val split.
         # There will be a test_data, but the param is not used.
 
-        n_total = len(all_articles)
-        n_train = int(train_split * n_total)
-        n_val = int(val_split * n_total)
+        # n_total = len(all_articles)
+        # n_train = int(train_split * n_total)
+        # n_val = int(val_split * n_total)
         
-        train_data = all_articles[:n_train]
-        val_data = all_articles[n_train:n_train + n_val]
-        test_data = all_articles[n_train + n_val:]
-        
-        return train_data, val_data, test_data
+        # train_data = all_articles[:n_train]
+        # val_data = all_articles[n_train:n_train + n_val]
+        # test_data = all_articles[n_train + n_val:]
+
+        all_articles_df = pd.DataFrame(all_articles, columns=['Date', 'Company','Article'])
+        return all_articles_df
 
     '''
     Function: find_next_available_date(date, all dates)
@@ -340,9 +303,9 @@ class Transformer:
     '''
 
     def getArticleEmbedding(self, input):
-        date = input[0]  
-        ticker = input[1] 
-        text = input[2]  
+        # date = input[0]  
+        # ticker = input[1] 
+        text = input
         cleaned_text = self.cleanArticle(text)
 
         # Tokenize the input
@@ -362,22 +325,103 @@ class Transformer:
             article_embedding = outputs.last_hidden_state[:, 0, :] # this goes off of [CLS] token, which identifies the relevant info we want
             embeddings.append(article_embedding) 
 
-        opening_price = opens_data[ticker].get(date, None)  # None is the default if the date is not found
-        print(date, ticker, opening_price)
+        # opening_price = opens_data[ticker].get(date, None)  # None is the default if the date is not found
+        # print(date, ticker, opening_price)
 
         return torch.mean(torch.stack(embeddings), dim=0)
+
+class MLP(nn.Module):
+
+    def __init__(self, articleToEmbedding, input_size, hidden_size, output_size, dropout=0.5):
+        super().__init__()
+        self.transformer = articleToEmbedding
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout(dropout)
+        self.fc2 = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.dropout(x)
+        x = self.fc2(x)
+        return x
+    
+    def get_batches(self, train_data, opens, batch_size=5):
+
+        batch = torch.empty(batch_size, 1024)  # 768 is the embedding dimension
+        true_labels = torch.empty(batch_size)
+
+        for batch_idx in range(batch_size):
+            while True:
+                random_sample = random.choice(train_data)
+                date = random_sample[0]
+                company = random_sample[1]
+                article = random_sample[2]
+                
+                print(date,company,article)
+                break
+                # embedding = self.transformer.getArticleEmbedding(article)
+                # batch[batch_idx] = embedding
+                # break
+        #         adjusted_date = Helper.find_next_available_date(date, opens[company].keys())
+        #         true_labels[batch_idx] = opens[company][adjusted_date]
+
+        #         break  # Move to the next item in the batch
+
+        # return batch, true_labels
+    
+    def train_model(self, articles_data, opens_data, epochs=20, batch_size=32, learning_rate=0.001, accuracy_threshold=0.10):
+        optimizer = optim.Adam(list(self.parameters()) + list(self.transformer.model.parameters()), lr=learning_rate)
+        criterion = nn.MSELoss() 
+        
+        for epoch in range(epochs):
+            self.train()
+            
+            total_train_loss = 0.0
+            total_train_accuracy = 0.0
+            num_train_batches = 0
+            
+            batch_data, true_labels = self.get_batches(articles_data, opens_data, batch_size=batch_size)
+            
+def init_weights(m):
+    if isinstance(m, nn.Linear):
+        nn.init.xavier_uniform_(m.weight)
+        if m.bias is not None:
+            nn.init.zeros_(m.bias)
 
 
 if __name__ == "__main__":
 
     articleToEmbedding = Transformer()
-    train_data, val_data, test_data = Helper.loadNewsData()
     opens_data = Helper.getNormalizedOpens()
-    # print(opens_data)
+    news_data = Helper.loadNewsData()
 
-    # sample = train_data[:30]        # train data - list of tuples
-    # for article in sample:
-    #     embedding = articleToEmbedding.getArticleEmbedding(article)
+    # joining opens w/ all data
+    news_data_w_norm = news_data.merge(
+        opens_data[['Company', 'Date', 'Normalized']], 
+        on=['Date', 'Company'], 
+        how='left' 
+    )
+
+    news_data_w_norm.dropna(inplace=True)
+
+    # OPTIONAL : save as .csv
+    news_data_w_norm.to_csv('news_data_w_norm.csv')
+
+    # OPTIONAL : save as .json 
+    # news_data_w_norm.to_json('news_data_w_norm.json')
+
+    """
+    Cleaned the data and made a new DataFrame.
+    
+    news_data_norm_structure - {"Date", "Company", "Article", "Normalized"}  
+
+    """
+
+    # train_df = pd.DataFrame(train_data, columns=['Date', 'Company', 'Article'])
+    # val_df = pd.DataFrame(val_data, columns=['Date', 'Company', 'Article'])
+    # test_df = pd.DataFrame(test_data, columns=['Date', 'Company', 'Article'])
 
 
     # mlp = MLP(articleToEmbedding=articleToEmbedding, input_size=1024, hidden_size=512, output_size=1)
