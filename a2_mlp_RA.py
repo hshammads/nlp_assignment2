@@ -303,17 +303,12 @@ class Transformer:
     '''
 
     def getArticleEmbedding(self, input):
-        # date = input[0]  
-        # ticker = input[1] 
         text = input
         cleaned_text = self.cleanArticle(text)
 
         # Tokenize the input
-        inputs = self.tokenizer(cleaned_text, padding=True, truncation=True, max_length=512, return_tensors="pt")       # 
-        input_ids = inputs['input_ids']     # tokens
-
-        # Debugging: See the words from ids
-        # print(self.tokenizer.convert_ids_to_tokens(inputs['input_ids'][0]))
+        inputs = self.tokenizer(cleaned_text, padding=True, truncation=True, max_length=512, return_tensors="pt")
+        input_ids = inputs['input_ids']
 
         chunk_size = 512
         chunks = [input_ids[:, i:i + chunk_size] for i in range(0, input_ids.size(1), chunk_size)]
@@ -322,13 +317,15 @@ class Transformer:
         for chunk in chunks:
             chunk = chunk.to(self.device)
             outputs = self.model(chunk)
-            article_embedding = outputs.last_hidden_state[:, 0, :] # this goes off of [CLS] token, which identifies the relevant info we want
-            embeddings.append(article_embedding) 
+            article_embedding = outputs.last_hidden_state[:, 0, :]  # Based on [CLS] token
+            embeddings.append(article_embedding)
 
-        # opening_price = opens_data[ticker].get(date, None)  # None is the default if the date is not found
-        # print(date, ticker, opening_price)
+        # Average over chunks
+        article_embedding = torch.mean(torch.stack(embeddings), dim=0)
 
-        return torch.mean(torch.stack(embeddings), dim=0)
+        # Convert to numpy for DataFrame compatibility
+        return article_embedding.detach().cpu().numpy()
+
 
 class MLP(nn.Module):
 
@@ -407,7 +404,7 @@ if __name__ == "__main__":
     news_data_w_norm.dropna(inplace=True)
 
     # OPTIONAL : save as .csv
-    news_data_w_norm.to_csv('news_data_w_norm.csv')
+    # news_data_w_norm.to_csv('news_data_w_norm.csv')
 
     # OPTIONAL : save as .json 
     # news_data_w_norm.to_json('news_data_w_norm.json')
@@ -415,9 +412,17 @@ if __name__ == "__main__":
     """
     Cleaned the data and made a new DataFrame.
     
-    news_data_norm_structure - {"Date", "Company", "Article", "Normalized"}  
+    news_data_w_norm - {"Date", "Company", "Article", "Normalized"}  
 
     """
+
+    from tqdm import tqdm
+    tqdm.pandas()  # Progress bar for pandas
+    news_data_w_norm['Embeddings'] = news_data_w_norm['Article'].progress_apply(
+        lambda article: articleToEmbedding.getArticleEmbedding(article)
+    )
+
+    news_data_w_norm.to_csv('news_data_w_norm_with_embeddings.csv', index=False)
 
     # train_df = pd.DataFrame(train_data, columns=['Date', 'Company', 'Article'])
     # val_df = pd.DataFrame(val_data, columns=['Date', 'Company', 'Article'])
