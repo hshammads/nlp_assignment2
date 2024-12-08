@@ -294,7 +294,7 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_dataset, batch_size=16)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = BertMLPModel().to(device)
+    model = BertMLPModel() #.to(device)
     optimizer = optim.AdamW(model.mlp.parameters(), lr=1e-5)  # Only update MLP parameters
     loss_fn = nn.MSELoss()
 

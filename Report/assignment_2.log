@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  7 DEC 2024 16:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  7 DEC 2024 22:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**hammad_sheikh_assignment_2.tex
-(./hammad_sheikh_assignment_2.tex
+**assignment_2.tex
+(./assignment_2.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
@@ -1044,7 +1044,7 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
 
-(./hammad_sheikh_assignment_2.aux
+(./assignment_2.aux
 
 LaTeX Warning: Label `method_a' multiply defined.
 
@@ -1070,7 +1070,7 @@ LaTeX Warning: Label `method_b' multiply defined.
 LaTeX Warning: Label `method_b@cref' multiply defined.
 
 )
-\openout1 = `hammad_sheikh_assignment_2.aux'.
+\openout1 = `assignment_2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
 LaTeX Font Info:    ... okay on input line 55.
@@ -1110,9 +1110,9 @@ LaTeX Info: Redefining \ref on input line 55.
 LaTeX Info: Redefining \pageref on input line 55.
 LaTeX Info: Redefining \nameref on input line 55.
 
-(./hammad_sheikh_assignment_2.out) (./hammad_sheikh_assignment_2.out)
+(./assignment_2.out) (./assignment_2.out)
 \@outlinefile=\write4
-\openout4 = `hammad_sheikh_assignment_2.out'.
+\openout4 = `assignment_2.out'.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1205,9 +1205,9 @@ LaTeX Font Info:    Try loading font information for U+esvect on input line 147
 (/usr/local/texlive/2018/texmf-dist/tex/latex/esvect/uesvect.fd
 File: uesvect.fd 
 )
-(./hammad_sheikh_assignment_2.toc)
+(./assignment_2.toc)
 \tf@toc=\write5
-\openout5 = `hammad_sheikh_assignment_2.toc'.
+\openout5 = `assignment_2.toc'.
 
  [1
 
@@ -1261,30 +1261,29 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 205.
+(hyperref)                removing `\@ifnextchar' on input line 206.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 227.
+(hyperref)                removing `\@ifnextchar' on input line 228.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 229.
+(hyperref)                removing `\@ifnextchar' on input line 230.
 
-(./hammad_sheikh_assignment_2.bbl [4]
-Underfull \hbox (badness 2538) in paragraph at lines 35--37
+(./assignment_2.bbl [4]
+Underfull \hbox (badness 2538) in paragraph at lines 29--31
 []\OT1/cmr/m/n/12 scikit learn, ``train[]test[]split,'' []$https : / / scikit-[
 ]learn . org / stable / modules / generated / sklearn .
  []
 
 ) [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 245.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 245.
- (./hammad_sheikh_assignment_2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 245.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 245.
-Package rerunfilecheck Info: File `hammad_sheikh_assignment_2.out' has not chan
-ged.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 246.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 246.
+ (./assignment_2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 246.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 246.
+Package rerunfilecheck Info: File `assignment_2.out' has not changed.
 (rerunfilecheck)             Checksum: 12C69CC92584925F36C9F61C1717FA87;932.
 
 
@@ -1293,22 +1292,22 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  31229 strings out of 492649
- 728424 string characters out of 6129622
+ 728186 string characters out of 6129622
  924465 words of memory out of 5000000
  34583 multiletter control sequences out of 15000+600000
  11005 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,5n,96p,1464b,681s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,5n,96p,1450b,683s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></u
 sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on hammad_sheikh_assignment_2.pdf (5 pages, 291053 bytes).
+Output written on assignment_2.pdf (5 pages, 291076 bytes).
 PDF statistics:
- 192 PDF objects out of 1000 (max. 8388607)
- 171 compressed objects within 2 object streams
+ 194 PDF objects out of 1000 (max. 8388607)
+ 173 compressed objects within 2 object streams
  32 named destinations out of 1000 (max. 500000)
  140 words of extra memory for PDF output out of 10000 (max. 10000000)
 

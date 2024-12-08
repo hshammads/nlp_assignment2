@@ -182,6 +182,7 @@ def get_info(link):
 
 news_data = [get_news(ticker_name) for ticker_name in TICKERS]
 
+info_dict = dict()
 c = 0
 for idx, item in enumerate(news_data):
     if item:
@@ -200,10 +201,10 @@ for idx, item in enumerate(news_data):
                     "last_p": data[2][1],
                     "whole_article": data[3]
                 }
-                with open(DATA_STORAGE_DIR + '/news_data.json', 'a') as json_file:
-                    if c > 0:
-                        json_file.write(',')
-                    json.dump({c:info}, json_file, indent=5)
-                    if DEBUG:
-                        print("Info data for {} saved to 'news_data.json'\n".format(article['link']))
+                info_dict[str(c)] = info
                 c += 1
+
+# print(info_dict)
+with open(DATA_STORAGE_DIR + '/news_data.json', 'a') as json_file:
+    if info_dict:
+        json.dump(info_dict, json_file, indent = 5)

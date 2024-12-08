@@ -25,15 +25,15 @@
 C.~Ryu, California State University, Fullerton,
   \url{https://www.fullerton.edu/ecs/cs/faculty/}.
 
+\bibitem{scdatasplit}
+scikit learn, ``train\_test\_split,''
+  \url{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html}.
+
 \bibitem{metha}
 M.~Do, "Method A", methodology Developed Primarily by Matthew Do.
 
 \bibitem{methb}
 R.~Avancena, "Method B", methodology Developed Primarily by Ryan Avancena.
-
-\bibitem{scdatasplit}
-scikit learn, ``train\_test\_split,''
-  \url{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html}.
 
 \bibitem{yfin}
 Y.~Finance, ``yfinance,'' \url{https://pypi.org/project/yfinance/}.

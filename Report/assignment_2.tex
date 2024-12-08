@@ -194,13 +194,14 @@ utilize the computing power and technology available in computers, we may be abl
 	\subsection{Data Pre-Processing} \label{data_preprocessing}
 		\subsubsection{Method A \cite{metha}} \label{method_a}
 		In this method, we started with utilizing word2vec \cite{w2v} for embedding the articles' text. However, this did not work for us. That is, the model trained really poorly. We believe the reason to be that we are giving every word (or word $\rightarrow$ vec, which is deterministic) the same value across an article, which would freak out the training and converge everything to 0. This is not helpful.\\
-		We changed our direction after experimenting with word2vec \cite{w2v}. We passed the scraped articles as input, while padding and truncating them at 580 characters. We pass this input set through bert-large-uncased \cite{bert} tokenizer. This allowed us to process the data and utilize it with existing functionalities of Bert \cite{bert} to develop a sentiment analyst model via bert-large-uncase \cite{bert}. More on this will be discussed in \cref{model_dev}.
+		We changed our direction after experimenting with word2vec \cite{w2v}. We passed the scraped articles as input, while padding and truncating them at 580 characters. We pass this input set through bert-large-uncased tokenizer \cite{bert}. This allowed us to process the data and utilize it with existing functionalities of Bert \cite{bert} to develop a sentiment analyst model via bert-large-uncase \cite{bert}. More on this will be discussed in \cref{model_dev}.
 		
 		\subsubsection{Method B \cite{methb}} \label{method_b}
 			
 	\subsection{Sentiment Analysis and Model Development} \label{model_dev}
 	
 		\subsubsection{Method A \cite{metha}} \label{method_a}
+		In \cref{data_preprocessing} we had tokenized our news articles (input data) via bert-large-uncased tokenizer \cite{bert}. 
 		
 		\subsubsection{Method B \cite{methb}} \label{method_b}
 
