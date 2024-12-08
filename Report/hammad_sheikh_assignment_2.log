@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  20 NOV 2024 16:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  7 DEC 2024 16:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1044,7 +1044,32 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
 
-(./hammad_sheikh_assignment_2.aux)
+(./hammad_sheikh_assignment_2.aux
+
+LaTeX Warning: Label `method_a' multiply defined.
+
+
+LaTeX Warning: Label `method_a@cref' multiply defined.
+
+
+LaTeX Warning: Label `method_b' multiply defined.
+
+
+LaTeX Warning: Label `method_b@cref' multiply defined.
+
+
+LaTeX Warning: Label `method_a' multiply defined.
+
+
+LaTeX Warning: Label `method_a@cref' multiply defined.
+
+
+LaTeX Warning: Label `method_b' multiply defined.
+
+
+LaTeX Warning: Label `method_b@cref' multiply defined.
+
+)
 \openout1 = `hammad_sheikh_assignment_2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
@@ -1063,8 +1088,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
 LaTeX Font Info:    ... okay on input line 55.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 55.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 55.
@@ -1189,111 +1213,102 @@ File: uesvect.fd
 
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<images/gen_approach.png, id=68, 462.72874pt x 680.5425pt>
-File: images/gen_approach.png Graphic file (type png)
-<use images/gen_approach.png>
-Package pdftex.def Info: images/gen_approach.png  used on input line 165.
-(pdftex.def)             Requested size: 158.81384pt x 233.57245pt.
+<images/gen_approachv2.png, id=98, 419.5675pt x 479.7925pt>
+File: images/gen_approachv2.png Graphic file (type png)
+<use images/gen_approachv2.png>
+Package pdftex.def Info: images/gen_approachv2.png  used on input line 165.
+(pdftex.def)             Requested size: 299.20059pt x 342.14853pt.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 166.
 See the caption package documentation for explanation.
 
-<images/fngu_hist.png, id=77, 1472.50125pt x 202.7575pt>
+[2 <./images/gen_approachv2.png>]
+<images/fngu_hist.png, id=116, 1472.50125pt x 202.7575pt>
 File: images/fngu_hist.png Graphic file (type png)
 <use images/fngu_hist.png>
-Package pdftex.def Info: images/fngu_hist.png  used on input line 182.
-(pdftex.def)             Requested size: 244.33128pt x 33.64226pt.
+Package pdftex.def Info: images/fngu_hist.png  used on input line 181.
+(pdftex.def)             Requested size: 498.66258pt x 68.66437pt.
+
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 183.
+(caption)                particular \caption on input line 182.
 See the caption package documentation for explanation.
 
-<images/news_data.png, id=78, 944.52875pt x 756.8275pt>
+<images/news_data.png, id=117, 944.52875pt x 756.8275pt>
 File: images/news_data.png Graphic file (type png)
 <use images/news_data.png>
-Package pdftex.def Info: images/news_data.png  used on input line 190.
-(pdftex.def)             Requested size: 244.33128pt x 195.77736pt.
+Package pdftex.def Info: images/news_data.png  used on input line 189.
+(pdftex.def)             Requested size: 299.20059pt x 239.74152pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 191.
+(caption)                particular \caption on input line 190.
 See the caption package documentation for explanation.
 
 
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 212.
-See the caption package documentation for explanation.
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 195.
 
-[2 <./images/gen_approach.png> <./images/fngu_hist.png> <./images/news_data.png
->] (./hammad_sheikh_assignment_2.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 25--27
-\OT1/cmr/m/n/12 ton, []$https : / / www . fullerton . edu / ecs / cs /
+[3 <./images/fngu_hist.png> <./images/news_data.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 199.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 203.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 205.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 227.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 229.
+
+(./hammad_sheikh_assignment_2.bbl [4]
+Underfull \hbox (badness 2538) in paragraph at lines 35--37
+[]\OT1/cmr/m/n/12 scikit learn, ``train[]test[]split,'' []$https : / / scikit-[
+]learn . org / stable / modules / generated / sklearn .
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--31
-[]\OT1/cmr/m/n/12 scikit learn, ``train[]test[]split,'' []$https :
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--31
-\OT1/cmr/m/n/12 / / scikit-[]learn . org / stable / modules /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--31
-\OT1/cmr/m/n/12 generated / sklearn . model[]selection .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--38
-\OT1/cmr/m/n/12 ton, []$https : / / www . fullerton . edu / ecs / cs /
- []
-
-
-Underfull \hbox (badness 6094) in paragraph at lines 40--42
-[]\OT1/cmr/m/n/12 K. Av-ery, Cal-i-for-nia State Uni-ver-sity,
- []
-
-
-Underfull \hbox (badness 7540) in paragraph at lines 40--42
-\OT1/cmr/m/n/12 Fuller-ton, []$https : / / www . fullerton . edu / ecs /
- []
-
-) [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 233.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 233.
+) [5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 245.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 245.
  (./hammad_sheikh_assignment_2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 233.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 233.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 245.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 245.
 Package rerunfilecheck Info: File `hammad_sheikh_assignment_2.out' has not chan
 ged.
-(rerunfilecheck)             Checksum: ADF41AE674EE9C22A5A72549C66494AC;619.
+(rerunfilecheck)             Checksum: 12C69CC92584925F36C9F61C1717FA87;932.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31207 strings out of 492649
- 728153 string characters out of 6129622
- 929465 words of memory out of 5000000
- 34571 multiletter control sequences out of 15000+600000
+ 31229 strings out of 492649
+ 728424 string characters out of 6129622
+ 924465 words of memory out of 5000000
+ 34583 multiletter control sequences out of 15000+600000
  11005 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,12n,96p,1464b,624s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,5n,96p,1464b,681s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
-r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on hammad_sheikh_assignment_2.pdf (3 pages, 305839 bytes).
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on hammad_sheikh_assignment_2.pdf (5 pages, 291053 bytes).
 PDF statistics:
- 145 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
- 100 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 192 PDF objects out of 1000 (max. 8388607)
+ 171 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
+ 140 words of extra memory for PDF output out of 10000 (max. 10000000)
 

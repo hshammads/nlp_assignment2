@@ -69,7 +69,7 @@
 %\end{tabular}
 
 %---------body of the pitch-----------%
-\begin{multicols}{2}
+%\begin{multicols}{2}
 \begin{flushleft}
 \justifying
 
@@ -88,7 +88,9 @@ In this exercise, you will learn how to develop a sentiment analysis model and a
 
 $\hrulefill$
 \subsection*{About the dataset and problem to solve}
-A stock, in investment terms, represents ownership in a company. When you buy stocks, you essentially buy a small piece of that company. The stock price for a company is mainly determined by the current value of the company that can be computed by the company’s past financial data (e.g., earnings, revenues, profits, etc.) and future value determined by the company’s future performance, which is unknown. The intrinsic value of a company refers to the actual and inherent worth of the company based on both current and future value. Therefore, a stock price is determined by the current value and estimated (perceived) future value of the company. Investors buy stocks based on the company’s estimated intrinsic value. That’s why the stock prices inherently fluctuate depending on the market situation and the company’s future prospectus, which are typically published in news articles. The more information investors have, the better they can estimate the intrinsic value.\\An Exchange-Traded Fund (\textbf{ETF}) is a type of investment fund that holds a collection of assets such as stocks, bonds, commodities, or a mix of these. There are many ETFs covering specific sections of the market currently being traded in the market. Some ETFs are conservative (slow price change) and some are highly aggressive or volatile in price change. \textbf{FNGU} is one of the ETF funds that concentrates on the top 10 popular technology companies, also known as \textbf{FANG+}, which include META, AAPL, AMZN, NFLX, NVDA, GOOGL, MSFT, CRWD, AVGO, and \href{https://finance.yahoo.com/quote/FNGU/holdings/}{NOW}. The fund manager occasionally changes the holdings. FNGU is highly volatile due to high leverage (3x). The price of FNGU change when the price of any of these holdings change. As a pair of FNGU, \textbf{FNGD} follows the inverse of FNGU for those who want to bet against FNGU. If most of the holdings are up, FNGU will go up 3x, but FNGD will go down 3x, and vice versa. In other words, the price movement of FNGU and FNGD is inverse, so you can buy and sell either one for profit in either direction as long as you can correctly predict the direction without relying on a sell-short strategy. Due to the popularity, the size, and their technological innovations of all those companies in FNGU, they most likely generate lots of news articles that impact the price of FNGU as well as the market indices.\\In this assignment, you will analyze the FNGU price data and related news articles to develop a simple trading system. Your trading system will be equipped with a sentiment analysis model that analyzes all the (directly or indirectly) FNGU-related news articles for \textcolor{red}{at least four weeks}, computes its market impact, and trades only FNGU, FNGD, or both FNGU and FNGD based on the impact. For example, your trading system will buy a certain number of shares if the news article is considered positive and the balance is enough to cover the trade. Otherwise, the system will sell a certain number of shares if the news article is negative and a sufficient number of shares are already owned. The \textcolor{green}{ultimate goal} is maximizing the \textcolor{green}{return} from the initial investment, utilizing the sentiment analysis model.
+A stock, in investment terms, represents ownership in a company. When you buy stocks, you essentially buy a small piece of that company. The stock price for a company is mainly determined by the current value of the company that can be computed by the company’s past financial data (e.g., earnings, revenues, profits, etc.) and future value determined by the company’s future performance, which is unknown. The intrinsic value of a company refers to the actual and inherent worth of the company based on both current and future value. Therefore, a stock price is determined by the current value and estimated (perceived) future value of the company. Investors buy stocks based on the company’s estimated intrinsic value. That’s why the stock prices inherently fluctuate depending on the market situation and the company’s future prospectus, which are typically published in news articles. The more information investors have, the better they can estimate the intrinsic value.\\
+An Exchange-Traded Fund (\textbf{ETF}) is a type of investment fund that holds a collection of assets such as stocks, bonds, commodities, or a mix of these. There are many ETFs covering specific sections of the market currently being traded in the market. Some ETFs are conservative (slow price change) and some are highly aggressive or volatile in price change. \textbf{FNGU} is one of the ETF funds that concentrates on the top 10 popular technology companies, also known as \textbf{FANG+}, which include META, AAPL, AMZN, NFLX, NVDA, GOOGL, MSFT, CRWD, AVGO, and \href{https://finance.yahoo.com/quote/FNGU/holdings/}{NOW}. The fund manager occasionally changes the holdings. FNGU is highly volatile due to high leverage (3x). The price of FNGU change when the price of any of these holdings change. As a pair of FNGU, \textbf{FNGD} follows the inverse of FNGU for those who want to bet against FNGU. If most of the holdings are up, FNGU will go up 3x, but FNGD will go down 3x, and vice versa. In other words, the price movement of FNGU and FNGD is inverse, so you can buy and sell either one for profit in either direction as long as you can correctly predict the direction without relying on a sell-short strategy. Due to the popularity, the size, and their technological innovations of all those companies in FNGU, they most likely generate lots of news articles that impact the price of FNGU as well as the market indices.\\
+In this assignment, you will analyze the FNGU price data and related news articles to develop a simple trading system. Your trading system will be equipped with a sentiment analysis model that analyzes all the (directly or indirectly) FNGU-related news articles for \textcolor{red}{at least four weeks}, computes its market impact, and trades only FNGU, FNGD, or both FNGU and FNGD based on the impact. For example, your trading system will buy a certain number of shares if the news article is considered positive and the balance is enough to cover the trade. Otherwise, the system will sell a certain number of shares if the news article is negative and a sufficient number of shares are already owned. The \textcolor{green}{ultimate goal} is maximizing the \textcolor{green}{return} from the initial investment, utilizing the sentiment analysis model.
 
 \subsection*{Required activities}
 \textcolor{red}{\textbf{Utilize} the \textbf{GPU} resources available on the \textbf{Nautilus} through the \textbf{Kubernetes}} for modeling (\textbf{NOT} by the JupyterHub) and \textcolor{red}{\textbf{write} an analysis report} about your system's modeling results and trading performance by answering all the questions below with your \textbf{\textcolor{red}{justification} supported \textcolor{red}{by the data}}.
@@ -156,17 +158,16 @@ utilize the computing power and technology available in computers, we may be abl
 	Without generalizing too much, let us look at an ETF, ticker FNGU, with the goal of applying existing text classification and sentiment analysis algorithms on news and stock data, and analyzing their results for performance and accuracy to maximize our investment returns. 
 	
 	\section{Approach} \label{approach}
-	The generalized approach is shown below in \cref{fig:gen_approach}. (Data Acquisition $\rightarrow$ Data Pre-Processing $\rightarrow$ Data Classification and Sentiment Analysis $\rightarrow$ Model Development for Investment $\leftrightarrow$ Parameter and Feature Adjustment to Maximize Investment Returns.) Further details will be discussed in the following sections. 
+	The generalized approach is shown below in \cref{fig:gen_approach}. (Data Acquisition $\rightarrow$ Data Pre-Processing $\rightarrow$ Sentiment Analysis and Model Development $\leftrightarrow$ Model Evulation.) Further details will be discussed in the following sections. 
 
 	\begin{figurehere}
 		\centering
-		\includegraphics[width=0.65\linewidth]{images/gen_approach.png}
+		\includegraphics[width=0.6\linewidth]{images/gen_approachv2.png}
 		\caption{Generalized Approach}
 		\label{fig:gen_approach}
 	\end{figurehere}
 	
-	\mbox{}\\
-	We will be relying on existing libraries as much as possible. This will help to focus on the classification and sentiment analysis task instead of building code from scratch for things that already exist. For example, train\_test\_split from sklearn.model\_selection \cite{scdatasplit} will be utilized to split the data into training and testing datasets.
+	We will be relying on existing libraries as much as possible. This will help to focus on the classification and sentiment analysis task instead of building code from scratch for things that already exist. For example, train\_test\_split from sklearn.model\_selection \cite{scdatasplit} will be utilized to split the data into training and testing datasets. We also tried different methodologies in order to test and assist each other. There are two main methodologies; one primarily developed by Matthew Do, that will now be referenced as \enquote{Method A} \cite{metha}, and one primarily developed by Ryan Avancena, that will now be referenced as \enquote{Method B} \cite{methb}.
 		
 	\subsection{Data Acquisition} \label{data_acquisition}
 	%\textit{\underline{Note from Dr. Ryu:}} You can use any package to download the data, but some popular Python packages may be \textbf{yfinance} or \textbf{yahoo-fin} or \textbf{both}. You \textbf{don't want} to use \textbf{rudimentary approaches like web scrapping as it will take too long time, and you are not sure about the data quality.}\\
@@ -185,15 +186,25 @@ utilize the computing power and technology available in computers, we may be abl
 	\mbox{}
 	\begin{figurehere}
 		\centering
-		\includegraphics[width=\linewidth]{images/news_data.png}
+		\includegraphics[width=0.6\linewidth]{images/news_data.png}
 		\caption{Sample snapshot of scraped News data}
 		\label{fig:news_data}
 	\end{figurehere}
 	
 	\subsection{Data Pre-Processing} \label{data_preprocessing}
+		\subsubsection{Method A \cite{metha}} \label{method_a}
+		In this method, we started with utilizing word2vec \cite{w2v} for embedding the articles' text. However, this did not work for us. That is, the model trained really poorly. We believe the reason to be that we are giving every word (or word $\rightarrow$ vec, which is deterministic) the same value across an article, which would freak out the training and converge everything to 0. This is not helpful.\\
+		We changed our direction after experimenting with word2vec \cite{w2v}. We passed the scraped articles as input, while padding and truncating them at 580 characters. We pass this input set through bert-large-uncased \cite{bert} tokenizer. This allowed us to process the data and utilize it with existing functionalities of Bert \cite{bert} to develop a sentiment analyst model via bert-large-uncase \cite{bert}. More on this will be discussed in \cref{model_dev}.
+		
+		\subsubsection{Method B \cite{methb}} \label{method_b}
 			
-	\subsection{Data Classification and Sentiment Analysis} \label{class_model_analysis}
+	\subsection{Sentiment Analysis and Model Development} \label{model_dev}
 	
+		\subsubsection{Method A \cite{metha}} \label{method_a}
+		
+		\subsubsection{Method B \cite{methb}} \label{method_b}
+
+	\iffalse
 	\mbox{}\\
 	\begin{tablehere}
 		\centering
@@ -210,15 +221,18 @@ utilize the computing power and technology available in computers, we may be abl
 		\caption{Classifiers' Evaluation Metrics}
 		\label{tab:classevalmetrics}
 	\end{tablehere}
-
-	\subsection{Model Development for Investment} \label{investment_model_dev}
+	\fi
 	
-	\subsection{Parameter and Feature Adjustment to Maximize Investment Returns} \label{adjustment_models}
-	
-	
+	\subsection{Model Evaluation} \label{model_eval}
+		\subsubsection{Method A \cite{metha}} \label{method_a}
+		
+		\subsubsection{Method B \cite{methb}} \label{method_b}
 	
 	\section{Conclusion and Future Work} \label{conclusion}
-		
+	\iffalse
+	Sentiment analysis is a valuable task in today's world filled with data and information. With development in AI and ML technologies, simplification and analysis of textual data in the realm of NLP holds tremendous value and importance. The stock market is a strong indicator of how the economy is performing and the daily happenings and news drive the stock market. Though we may not believe an event to be impactful to us directly, it could have profound impact depending on how the stock market accounts for said event. Individuals respond to stock market trends in relation to how safe or at risk they fell after a news event, which then drives the economy. We all strive for a stable economy in order to plan for our future and have a sense of security that our future will be safe. In order for this to be the case, we need to better understand the stock market. Hence, we need to better understand the sentiment of news.\\
+	\fi
+	For this assignment, it took us quite a bit of time to gather data. Additionally, it took us time to understand what technology and tools to utilize to process the data and develop a model that could provide us sentiment analysis. Though we were able to develop a model, it is not deployment ready. Our future work is to utilize the data, that we spent a lot of time to gather, and the existing development to better analyze news data in real-time. This work could then be further enhanced with the trends data and models that stock market analysts use in real-time to forecast market trends. Having such a model would provide tremendous value in better understanding and staying up-to-date with market trends.
 	
 	\section{Acknowledgements} \label{acknowledgements}
 	I would like to acknowledge Dr. Jin \cite{rjin} for ML, classification and probability distribution concepts, Professor Avery \cite{avery} for MLP concepts, 
@@ -227,5 +241,5 @@ utilize the computing power and technology available in computers, we may be abl
 \bibliography{references}
 
 \end{flushleft}
-\end{multicols}
+%\end{multicols}
 \end{document}
