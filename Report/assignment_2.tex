@@ -197,37 +197,62 @@ utilize the computing power and technology available in computers, we may be abl
 		We changed our direction after experimenting with word2vec \cite{w2v}. We passed the scraped articles as input, while padding and truncating them at 580 characters. We pass this input set through bert-large-uncased tokenizer \cite{bert}. This allowed us to process the data and utilize it with existing functionalities of Bert \cite{bert} to develop a sentiment analyst model via bert-large-uncase \cite{bert}. More on this will be discussed in \cref{model_dev}.
 		
 		\subsubsection{Method B \cite{methb}} \label{method_b}
+		In this method, local computing resources were insufficient. Hence, we worked and developed in Google Colab \cite{colab}.This allowed us to utilize cloud computing capabilities of Google Infrastructure, reducing limitations introduced by local computing resources. We experimented with a different technique from \enquote{Method A} \cite{metha}. Main differences include, but are not limited to, focusing on a singular stock to start (ServiceNow), leaning into scikit-learn's MLP model \cite{skmlp}, and utilizing Gensim's CBOW model \cite{gensim} to generate text embeddings rather Bert \cite{bert}. We also utilized NLTK \cite{nltk} to remove stopwords, cleaning up the web scraped news articles. We then split the cleaned articles' data via TimeSeriesSplit \cite{tssplit}. This data set was then tokenized via NLTK tokenizer \cite{nltk}, and then embedded via Gensim's CBOW \cite{gensim}.
 			
 	\subsection{Sentiment Analysis and Model Development} \label{model_dev}
 	
 		\subsubsection{Method A \cite{metha}} \label{method_a}
-		In \cref{data_preprocessing} we had tokenized our news articles (input data) via bert-large-uncased tokenizer \cite{bert}. 
+		In \cref{data_preprocessing} we had tokenized our news articles (input data) via bert-large-uncased tokenizer \cite{bert}. We processed this tokenized data through bert-large-uncased \cite{bert} with an added layer of 256 neurons, 0.3 dropout as the last head, and early stopping enabled. We froze all weights except for the 256 neurons. The model trained for 129 epochs with 3.33 training loss and 0.053 validation loss, as shown in \cref{fig:bert_training}.
+		
+		\mbox{}
+		\begin{figurehere}
+			\centering
+			\includegraphics[width=0.95\linewidth]{images/bert_training_mac.png}
+			\caption{Bert Model Training}
+			\label{fig:bert_training}
+		\end{figurehere}
+				
+		The output of the model is a prediction of \% increase in returns from previous day, with labels of current open and yesterday open. The calculation for rate of return being $\frac{\text{current open - yesterday open}}{\text{yesterday open}}$.
 		
 		\subsubsection{Method B \cite{methb}} \label{method_b}
-
-	\iffalse
-	\mbox{}\\
-	\begin{tablehere}
-		\centering
-		\resizebox{\columnwidth}{!}{%
-		\begin{tabular}{C|C|C|C|C|C}
-			\text{Model/Evaluation Metric} & \text{Accuracy} & \text{Sensitivity or Recall} & \text{Specificity} & \text{Precision} & \text{Harmonic mean}\\
-			\hline
-			\text{Bernoulli Naïve Bayes} & 86.18\% & 21.89\% & 94.88\% & 36.65\% & 27.41\%\\
-			\text{Logistic Regression} & 88.30\% & 17.63\% & 97.87\% & 52.78\% & 26.43\%\\
-			\text{Default MLP} & 88.74\% & 41.56\% & 94.55\% & 50.79\% & 45.71\%\\
-			\text{Adjusted MLP} & 90.05\% & 34.14\% & 97.61\% & 65.95\% & 44.99\%			
-		\end{tabular}
-		}
-		\caption{Classifiers' Evaluation Metrics}
-		\label{tab:classevalmetrics}
-	\end{tablehere}
-	\fi
+		In \cref{data_preprocessing} we had tokenized our dataset via NLTK tokenizer \cite{nltk} and embedded it via Gensim's CBOW \cite{gensim}. We processed this data through scikit-learn's MLP model \cite{skmlp}, with two hidden layers, with the first hidden layer having 100 neurons and the second hidden layer having 50 neurons. We then set the model to train, and normalized open values to obtain a regression value. We will discuss metrics in \cref{model_eval}.
 	
 	\subsection{Model Evaluation} \label{model_eval}
 		\subsubsection{Method A \cite{metha}} \label{method_a}
+		The model trained for 129 epochs with 3.33 training loss and 0.053 validation loss, as shown in \cref{fig:bert_training}. Further evaluation and testing is to be completed in future work, as discussed in \cref{conclusion}.
 		
 		\subsubsection{Method B \cite{methb}} \label{method_b}
+		We reviewed loss values post training of the model. We got mean squared error (MSE) with the value 0.0214 and mean absolute error (MAE) with the value 0.1277, which are quite good, albeit only for ServiceNow stock \cite{snow}. Further information on metrics is shown in \cref{fig:methbloss}.
+		
+		\mbox{}\\
+		\begin{figurehere}
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/methbloss.png}
+			\caption{Method B Metrics}
+			\label{fig:methbloss}
+		\end{figurehere}
+		\mbox{}\\
+		
+		We also plotted a trends graph of normalized data, over time, as discussed in \cref{model_dev}. This was done in order to be used a reference for future model enhancement and usage to determine whether our model is predicting buy vs sell in line with the trends. This graph is shown in \cref{fig:methbdatanorm}.\\		
+		We also attempted to run predictions on the built model through some test cases, for which the results are shown in \cref{fig:methbpred}.\\
+		Though the model is not complete, it is showing promising results, with next steps being to expand the model to all the stocks in our dataset instead of just ServiceNow \cite{snow}.		
+		
+		\mbox{}\\
+		\begin{figurehere}
+			\centering
+			\includegraphics[width=\linewidth]{images/methbdatanorm.png}
+			\caption{Method B Normalized Data Trends}
+			\label{fig:methbdatanorm}
+		\end{figurehere}
+		
+		\mbox{}\\
+		\begin{figurehere}
+			\centering
+			\includegraphics[width=\linewidth]{images/methbpred.png}
+			\caption{Method B Prediction Tests}
+			\label{fig:methbpred}
+		\end{figurehere}
+		
 	
 	\section{Conclusion and Future Work} \label{conclusion}
 	\iffalse
@@ -236,7 +261,7 @@ utilize the computing power and technology available in computers, we may be abl
 	For this assignment, it took us quite a bit of time to gather data. Additionally, it took us time to understand what technology and tools to utilize to process the data and develop a model that could provide us sentiment analysis. Though we were able to develop a model, it is not deployment ready. Our future work is to utilize the data, that we spent a lot of time to gather, and the existing development to better analyze news data in real-time. This work could then be further enhanced with the trends data and models that stock market analysts use in real-time to forecast market trends. Having such a model would provide tremendous value in better understanding and staying up-to-date with market trends.
 	
 	\section{Acknowledgements} \label{acknowledgements}
-	I would like to acknowledge Dr. Jin \cite{rjin} for ML, classification and probability distribution concepts, Professor Avery \cite{avery} for MLP concepts, 
+	We would like to acknowledge Dr. Jin \cite{rjin} for ML, classification and probability distribution concepts, Professor Avery \cite{avery} for MLP concepts, and Dr. Ryu \cite{cryu} for scraper, stock information downloading process and assignment information.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

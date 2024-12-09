@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  7 DEC 2024 22:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  8 DEC 2024 16:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1257,32 +1257,89 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 203.
+(hyperref)                removing `\@ifnextchar' on input line 204.
+
+<images/bert_training_mac.png, id=150, 926.46124pt x 300.12125pt>
+File: images/bert_training_mac.png Graphic file (type png)
+<use images/bert_training_mac.png>
+Package pdftex.def Info: images/bert_training_mac.png  used on input line 210.
+(pdftex.def)             Requested size: 473.72792pt x 153.4628pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 211.
+See the caption package documentation for explanation.
+
+[4 <./images/bert_training_mac.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 217.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 206.
+(hyperref)                removing `\@ifnextchar' on input line 221.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 228.
+(hyperref)                removing `\@ifnextchar' on input line 224.
+
+<images/methbloss.png, id=177, 410.53375pt x 84.315pt>
+File: images/methbloss.png Graphic file (type png)
+<use images/methbloss.png>
+Package pdftex.def Info: images/methbloss.png  used on input line 230.
+(pdftex.def)             Requested size: 349.06227pt x 71.68994pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 231.
+See the caption package documentation for explanation.
 
 
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 230.
+Underfull \hbox (badness 10000) in paragraph at lines 234--235
 
-(./assignment_2.bbl [4]
-Underfull \hbox (badness 2538) in paragraph at lines 29--31
-[]\OT1/cmr/m/n/12 scikit learn, ``train[]test[]split,'' []$https : / / scikit-[
-]learn . org / stable / modules / generated / sklearn .
  []
 
-) [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 246.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 246.
+<images/methbdatanorm.png, id=182, 861.2175pt x 570.13pt>
+File: images/methbdatanorm.png Graphic file (type png)
+<use images/methbdatanorm.png>
+Package pdftex.def Info: images/methbdatanorm.png  used on input line 243.
+(pdftex.def)             Requested size: 498.66258pt x 330.12756pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 244.
+See the caption package documentation for explanation.
+
+
+Underfull \vbox (badness 2856) has occurred while \output is active []
+
+ [5 <./images/methbloss.png>]
+<images/methbpred.png, id=193, 1094.0875pt x 426.59375pt>
+File: images/methbpred.png Graphic file (type png)
+<use images/methbpred.png>
+Package pdftex.def Info: images/methbpred.png  used on input line 251.
+(pdftex.def)             Requested size: 498.66258pt x 194.43242pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 252.
+See the caption package documentation for explanation.
+
+[6 <./images/methbdatanorm.png> <./images/methbpred.png>] (./assignment_2.bbl
+Underfull \hbox (badness 7081) in paragraph at lines 52--54
+[]\OT1/cmr/m/n/12 scikit learn, "MLP-Clas-si-fier", []$https : / / scikit-[]lea
+rn . org / dev / modules / generated / sklearn .
+ []
+
+
+Underfull \hbox (badness 1048) in paragraph at lines 56--58
+[]\OT1/cmr/m/n/12 O. Source, "Gen-sim Em-bed-dings", []$https : / / radimrehure
+k . com / gensim / models / word2vec .
+ []
+
+) [7]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 271.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 271.
  (./assignment_2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 246.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 246.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 271.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 271.
 Package rerunfilecheck Info: File `assignment_2.out' has not changed.
 (rerunfilecheck)             Checksum: 12C69CC92584925F36C9F61C1717FA87;932.
 
@@ -1291,23 +1348,24 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 31229 strings out of 492649
- 728186 string characters out of 6129622
- 924465 words of memory out of 5000000
- 34583 multiletter control sequences out of 15000+600000
+ 31275 strings out of 492649
+ 728998 string characters out of 6129622
+ 925465 words of memory out of 5000000
+ 34613 multiletter control sequences out of 15000+600000
  11005 words of font info for 43 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,5n,96p,1450b,683s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,6n,96p,1450b,694s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
-r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on assignment_2.pdf (5 pages, 291076 bytes).
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on assignment_2.pdf (7 pages, 679814 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 173 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
- 140 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 265 PDF objects out of 1000 (max. 8388607)
+ 232 compressed objects within 3 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 160 words of extra memory for PDF output out of 10000 (max. 10000000)
 

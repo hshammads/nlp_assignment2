@@ -6,9 +6,9 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Method B \cite {methb}}{4}{subsubsection.2.2.2}
 \contentsline {subsection}{\numberline {2.3}Sentiment Analysis and Model Development}{4}{subsection.2.3}
 \contentsline {subsubsection}{\numberline {2.3.1}Method A \cite {metha}}{4}{subsubsection.2.3.1}
-\contentsline {subsubsection}{\numberline {2.3.2}Method B \cite {methb}}{4}{subsubsection.2.3.2}
-\contentsline {subsection}{\numberline {2.4}Model Evaluation}{4}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}Method A \cite {metha}}{4}{subsubsection.2.4.1}
-\contentsline {subsubsection}{\numberline {2.4.2}Method B \cite {methb}}{4}{subsubsection.2.4.2}
-\contentsline {section}{\numberline {3}Conclusion and Future Work}{4}{section.3}
-\contentsline {section}{\numberline {4}Acknowledgements}{4}{section.4}
+\contentsline {subsubsection}{\numberline {2.3.2}Method B \cite {methb}}{5}{subsubsection.2.3.2}
+\contentsline {subsection}{\numberline {2.4}Model Evaluation}{5}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Method A \cite {metha}}{5}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Method B \cite {methb}}{5}{subsubsection.2.4.2}
+\contentsline {section}{\numberline {3}Conclusion and Future Work}{6}{section.3}
+\contentsline {section}{\numberline {4}Acknowledgements}{7}{section.4}
